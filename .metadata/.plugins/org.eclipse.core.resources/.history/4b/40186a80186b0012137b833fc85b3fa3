@@ -54,7 +54,6 @@ final class contactListener implements ContactListener {
 	public void Bettween2ContactCollision() 
 	{
 		boolean CanJump = false;
-		boolean isInContactWithGravityGlobal = false;
 		Iterator<Contact> iContact = Utility.world.getContactList().iterator();
 		while(iContact.hasNext()){
 
@@ -63,23 +62,23 @@ final class contactListener implements ContactListener {
 			Body b =  contact.getFixtureB().getBody();
 			int aData =  (Integer) a.getUserData();
 			int bData =  (Integer) b.getUserData();
-			
 
 
 
-			
+
+			// SI LES SENSOR SONT EN CONTACT AVEC UNE TILE DE GRAVITE
 
 			for (int iSensor = 10001; iSensor <= 10004; iSensor++) {
 				{
 
 					if((aData == iSensor && bData == Gravity.TILE) || (bData ==  iSensor && aData == Gravity.TILE))
 					{
-						// Si un des capteur est en contact avec une tile on peux sauter
 						CanJump = true;
-						
+						System.out.println("Can Jump = true: "+ iSensor);
 						boolean isInContactWithGravity = false;
 						if(aData == iSensor)
 						{
+
 							Gravity grav = gravitys.bodyTile(b);
 							if(grav != null)
 							{
@@ -88,6 +87,7 @@ final class contactListener implements ContactListener {
 						}
 						else
 						{
+
 							Gravity grav = gravitys.bodyTile(a);
 							grav.isInContact(a.getPosition());
 							if(grav != null)
@@ -99,13 +99,13 @@ final class contactListener implements ContactListener {
 
 						if(isInContactWithGravity)  
 						{
-							isInContactWithGravityGlobal = true;
-							if(iSensor == player.SENSOR_LEFT)
-							{
-								personnage.setAngleGravitee(-90);
-							}else if(iSensor == player.SENSOR_RIGHT)
+
+							if(iSensor == player.SENSOR_RIGHT)
 							{
 								personnage.setAngleGravitee(90);
+							}else if(iSensor == player.SENSOR_LEFT)
+							{
+								personnage.setAngleGravitee(-90);
 							}else if(iSensor == player.SENSOR_TOP)
 							{
 								personnage.setAngleGravitee(180);
@@ -113,41 +113,14 @@ final class contactListener implements ContactListener {
 							{
 								personnage.setAngleGravitee(0);
 							}
-						}
-						
-							if(iSensor == player.SENSOR_LEFT)
-							{
-								personnage.setInContactWithSensor(player.SENSOR_LEFT,true);
-							}else if(iSensor == player.SENSOR_RIGHT)
-							{
-								personnage.setInContactWithSensor(player.SENSOR_RIGHT,true);
-							}else if(iSensor == player.SENSOR_TOP)
-							{
-								personnage.setInContactWithSensor(player.SENSOR_TOP,true);
-							}else
-							{
-								personnage.setInContactWithSensor(player.SENSOR_BOTTOM,true);
-							}
-						
-						
+						}	
 					}			
 				}
 			}
 		}
-		
-		
-		if(!isInContactWithGravityGlobal)
-		{
-		//si aucun capteur ne touche une tile on revien a l'angle par defaut
-			personnage.setAngleGravitee(0);
-
-		}
 		if(!CanJump)
 		{
-			personnage.setInContactWithSensor(player.SENSOR_BOTTOM,false);
-			personnage.setInContactWithSensor(player.SENSOR_LEFT,false);
-			personnage.setInContactWithSensor(player.SENSOR_RIGHT,false);
-			personnage.setInContactWithSensor(player.SENSOR_TOP,false);
+			personnage.setAngleGravitee(0);
 		}
 		personnage.setCanJump(CanJump);
 	}

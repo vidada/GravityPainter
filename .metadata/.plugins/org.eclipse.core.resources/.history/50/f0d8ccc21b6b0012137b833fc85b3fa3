@@ -80,6 +80,7 @@ final class contactListener implements ContactListener {
 						boolean isInContactWithGravity = false;
 						if(aData == iSensor)
 						{
+
 							Gravity grav = gravitys.bodyTile(b);
 							if(grav != null)
 							{
@@ -88,6 +89,7 @@ final class contactListener implements ContactListener {
 						}
 						else
 						{
+
 							Gravity grav = gravitys.bodyTile(a);
 							grav.isInContact(a.getPosition());
 							if(grav != null)
@@ -102,34 +104,23 @@ final class contactListener implements ContactListener {
 							isInContactWithGravityGlobal = true;
 							if(iSensor == player.SENSOR_LEFT)
 							{
+								
 								personnage.setAngleGravitee(-90);
+								personnage.setInContactWithSensor(1,true);
 							}else if(iSensor == player.SENSOR_RIGHT)
 							{
 								personnage.setAngleGravitee(90);
+								personnage.setInContactWithSensor(2,true);
 							}else if(iSensor == player.SENSOR_TOP)
 							{
 								personnage.setAngleGravitee(180);
+								personnage.setInContactWithSensor(3,true);
 							}else
 							{
 								personnage.setAngleGravitee(0);
+								personnage.setInContactWithSensor(0,true);
 							}
-						}
-						
-							if(iSensor == player.SENSOR_LEFT)
-							{
-								personnage.setInContactWithSensor(player.SENSOR_LEFT,true);
-							}else if(iSensor == player.SENSOR_RIGHT)
-							{
-								personnage.setInContactWithSensor(player.SENSOR_RIGHT,true);
-							}else if(iSensor == player.SENSOR_TOP)
-							{
-								personnage.setInContactWithSensor(player.SENSOR_TOP,true);
-							}else
-							{
-								personnage.setInContactWithSensor(player.SENSOR_BOTTOM,true);
-							}
-						
-						
+						}	
 					}			
 				}
 			}
@@ -140,14 +131,6 @@ final class contactListener implements ContactListener {
 		{
 		//si aucun capteur ne touche une tile on revien a l'angle par defaut
 			personnage.setAngleGravitee(0);
-
-		}
-		if(!CanJump)
-		{
-			personnage.setInContactWithSensor(player.SENSOR_BOTTOM,false);
-			personnage.setInContactWithSensor(player.SENSOR_LEFT,false);
-			personnage.setInContactWithSensor(player.SENSOR_RIGHT,false);
-			personnage.setInContactWithSensor(player.SENSOR_TOP,false);
 		}
 		personnage.setCanJump(CanJump);
 	}

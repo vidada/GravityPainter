@@ -16,8 +16,9 @@ public class GestionaireGravity {
 	static final int DOWN = 2;
 	static final int LEFT = 3;
 	static final int RIGHT = 4;
-	
 	private static Animation anim;
+
+
 
 	private SpriteBatch spriteBatch;
 
@@ -33,26 +34,17 @@ public class GestionaireGravity {
 		spriteBatch = new SpriteBatch();
 		anim = new Animation("gravitee.png",32,32,200);
 	}
-	
-	
-	
 
 	public void addMap(Level _level)
 	{
 		map = _level.Get_TiledMap();
 	}
-	
-	
-	
-	
 	public Gravity get(int _id) 
 	{
+
 		return gravitys.get(_id);
 	}
 
-	
-	
-	
 	public void add(int _x , int _y, int _r,Body _bodyTileClicked)
 	{
 
@@ -64,25 +56,31 @@ public class GestionaireGravity {
 		{
 			if((x== gravitys.get(key).getX() &&	y == gravitys.get(key).getY()))
 			{
-				//La Gravitée existe deja
+				//TODO GRAVPAS PERSO
+				System.out.println("EXISTE DEJA  !!!!!!!!!!!!");
 				exist = true;
+
 				gravitys.get(key).setTimer();
 			}
 		}
 
 		if(exist == false)
 		{
-			//La Gravitée existe pas on la crée
 			gravitys.put(idGravity, new Gravity(x, y, r,_bodyTileClicked));
+
+
+			System.out.println("ADD GRAVITY !!!" + x + " : " + y);
 			idGravity++;
 		}
+
+
 	}
 
 
-	
-	// Affiche le Les Gravitées
 	public void draw(OrthographicCamera cam)
 	{
+
+
 		for (int key : gravitys.keySet()) 
 		{
 			int y=get(key).getY();
@@ -111,19 +109,12 @@ public class GestionaireGravity {
 			}
 		}
 	}
-	
-	
-	
 
 	public	boolean del(int _id)
 	{
 		gravitys.remove(_id);
 		return true;
 	}
-	
-	
-	
-	
 	public boolean delAll() 
 	{
 
@@ -132,26 +123,19 @@ public class GestionaireGravity {
 		idGravity = 0;
 		return true;
 	}
-	
-	
-	
-	//retourne le body de la tile d'ou la gravitée provient
-	public Gravity bodyTile(Body _body)
+	public Gravity thisBodyTile(Body _body)
 	{
+
 		for (int mapKey : gravitys.keySet()) 
 		{
 			Body tmpBody = gravitys.get(mapKey).getBodyTile();
-			if(tmpBody.equals(_body))
+			if(tmpBody.equals(_body) && !gravitys.get(mapKey).getTimerElapsed() )
 			{
 				return 	gravitys.get(mapKey);
 			}
 		}
 		return null;
 	}
-	
-	
-	
-	
 	public void render()
 	{
 
@@ -185,6 +169,34 @@ public class GestionaireGravity {
 			}
 		}
 	}
+
+
+//
+//	public HashMap<Integer, Gravity> InContact(Vector2 _with,int _size) {
+//		HashMap<Integer, Gravity> pointsInContact = null;
+//
+//
+//		pointsInContact = new HashMap<Integer, Gravity>();
+//		int  i=0;
+//
+//
+//		for (int mapKey : gravitys.keySet()) 
+//		{
+//			if( gravitys.get(mapKey).isInContact(_with))
+//			{
+//				//System.out.println("Incontact true " +  gravitys.get(mapKey).getBody().getPosition().x  +" y : " +gravitys.get(mapKey).getBody().getPosition().y);
+//				pointsInContact.put(i, gravitys.get(mapKey));
+//				i++;
+//			}
+//
+//
+//		}
+//
+//		return pointsInContact;
+//	}
+//
+
+
 }
 
 

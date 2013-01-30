@@ -334,10 +334,10 @@ public class player {
 			}
 			else if(SensorActif[1])
 			{
-				body.applyLinearImpulse(new Vector2(500.0f, 0.0f), body.getWorldCenter());
+				body.applyLinearImpulse(new Vector2(-500.0f, 0.0f), body.getWorldCenter());
 			}	else if(SensorActif[2])
 			{
-				body.applyLinearImpulse(new Vector2(-500.0f, 0.0f), body.getWorldCenter());
+				body.applyLinearImpulse(new Vector2(500.0f, 0.0f), body.getWorldCenter());
 			}
 				  	    
 		}

@@ -117,16 +117,16 @@ final class contactListener implements ContactListener {
 						
 							if(iSensor == player.SENSOR_LEFT)
 							{
-								personnage.setInContactWithSensor(player.SENSOR_LEFT,true);
+								personnage.setInContactWithSensor(1,true);
 							}else if(iSensor == player.SENSOR_RIGHT)
 							{
-								personnage.setInContactWithSensor(player.SENSOR_RIGHT,true);
+								personnage.setInContactWithSensor(2,true);
 							}else if(iSensor == player.SENSOR_TOP)
 							{
-								personnage.setInContactWithSensor(player.SENSOR_TOP,true);
+								personnage.setInContactWithSensor(3,true);
 							}else
 							{
-								personnage.setInContactWithSensor(player.SENSOR_BOTTOM,true);
+								personnage.setInContactWithSensor(0,true);
 							}
 						
 						
@@ -140,14 +140,10 @@ final class contactListener implements ContactListener {
 		{
 		//si aucun capteur ne touche une tile on revien a l'angle par defaut
 			personnage.setAngleGravitee(0);
-
-		}
-		if(!CanJump)
-		{
-			personnage.setInContactWithSensor(player.SENSOR_BOTTOM,false);
-			personnage.setInContactWithSensor(player.SENSOR_LEFT,false);
-			personnage.setInContactWithSensor(player.SENSOR_RIGHT,false);
-			personnage.setInContactWithSensor(player.SENSOR_TOP,false);
+			personnage.setInContactWithSensor(0,false);
+			personnage.setInContactWithSensor(1,false);
+			personnage.setInContactWithSensor(2,false);
+			personnage.setInContactWithSensor(3,false);
 		}
 		personnage.setCanJump(CanJump);
 	}

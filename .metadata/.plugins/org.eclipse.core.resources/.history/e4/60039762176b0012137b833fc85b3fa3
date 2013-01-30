@@ -16,8 +16,9 @@ public class GestionaireGravity {
 	static final int DOWN = 2;
 	static final int LEFT = 3;
 	static final int RIGHT = 4;
-	
 	private static Animation anim;
+
+
 
 	private SpriteBatch spriteBatch;
 
@@ -33,26 +34,17 @@ public class GestionaireGravity {
 		spriteBatch = new SpriteBatch();
 		anim = new Animation("gravitee.png",32,32,200);
 	}
-	
-	
-	
 
 	public void addMap(Level _level)
 	{
 		map = _level.Get_TiledMap();
 	}
-	
-	
-	
-	
 	public Gravity get(int _id) 
 	{
+
 		return gravitys.get(_id);
 	}
 
-	
-	
-	
 	public void add(int _x , int _y, int _r,Body _bodyTileClicked)
 	{
 
@@ -72,17 +64,21 @@ public class GestionaireGravity {
 
 		if(exist == false)
 		{
-			//La Gravitée existe pas on la crée
 			gravitys.put(idGravity, new Gravity(x, y, r,_bodyTileClicked));
+
+
+			System.out.println("ADD GRAVITY !!!" + x + " : " + y);
 			idGravity++;
 		}
+
+
 	}
 
 
-	
-	// Affiche le Les Gravitées
 	public void draw(OrthographicCamera cam)
 	{
+
+
 		for (int key : gravitys.keySet()) 
 		{
 			int y=get(key).getY();
@@ -111,19 +107,12 @@ public class GestionaireGravity {
 			}
 		}
 	}
-	
-	
-	
 
 	public	boolean del(int _id)
 	{
 		gravitys.remove(_id);
 		return true;
 	}
-	
-	
-	
-	
 	public boolean delAll() 
 	{
 
@@ -132,26 +121,19 @@ public class GestionaireGravity {
 		idGravity = 0;
 		return true;
 	}
-	
-	
-	
-	//retourne le body de la tile d'ou la gravitée provient
-	public Gravity bodyTile(Body _body)
+	public Gravity thisBodyTile(Body _body)
 	{
+
 		for (int mapKey : gravitys.keySet()) 
 		{
 			Body tmpBody = gravitys.get(mapKey).getBodyTile();
-			if(tmpBody.equals(_body))
+			if(tmpBody.equals(_body) && !gravitys.get(mapKey).getTimerElapsed() )
 			{
 				return 	gravitys.get(mapKey);
 			}
 		}
 		return null;
 	}
-	
-	
-	
-	
 	public void render()
 	{
 

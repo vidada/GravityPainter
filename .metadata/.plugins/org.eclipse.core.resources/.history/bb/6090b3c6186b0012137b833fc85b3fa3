@@ -138,10 +138,11 @@ public class GestionaireGravity {
 	//retourne le body de la tile d'ou la gravitée provient
 	public Gravity bodyTile(Body _body)
 	{
+
 		for (int mapKey : gravitys.keySet()) 
 		{
 			Body tmpBody = gravitys.get(mapKey).getBodyTile();
-			if(tmpBody.equals(_body))
+			if(tmpBody.equals(_body) && !gravitys.get(mapKey).getTimerElapsed() )
 			{
 				return 	gravitys.get(mapKey);
 			}

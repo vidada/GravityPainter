@@ -308,8 +308,6 @@ public class player {
 				 {
 					 soundJump3.play();
 				 }
-				 boolean[] SensorActif = getInContactWithSensor();	
-				 
 				
 			if (angleGravitee == 90)//OK
 		{
@@ -324,27 +322,10 @@ public class player {
 			body.applyLinearImpulse(new Vector2(500.0f, 0), body.getWorldCenter());
 		}
 		if (angleGravitee == 0)//SOL OK
-		{    			
-			if(SensorActif[0] || (SensorActif[0] && SensorActif[1]) ||(SensorActif[0] && SensorActif[2]) || (SensorActif[0] && SensorActif[1] && SensorActif[2]))
-			{
-				body.applyLinearImpulse(new Vector2(0, 500.0f), body.getWorldCenter());
-			}else if(SensorActif[3] || (SensorActif[3] && SensorActif[1]) ||(SensorActif[3] && SensorActif[2]) || (SensorActif[3] && SensorActif[1] && SensorActif[2]))
-			{
-				body.applyLinearImpulse(new Vector2(0, -500.0f), body.getWorldCenter());
-			}
-			else if(SensorActif[1])
-			{
-				body.applyLinearImpulse(new Vector2(500.0f, 0.0f), body.getWorldCenter());
-			}	else if(SensorActif[2])
-			{
-				body.applyLinearImpulse(new Vector2(-500.0f, 0.0f), body.getWorldCenter());
-			}
-				  	    
+		{    
+			body.applyLinearImpulse(new Vector2(0, 500.0f), body.getWorldCenter());	  	    
 		}
 		}
-		
-		
-		
 	}
 
 	
@@ -357,13 +338,13 @@ public class player {
 	
 	
 	
-	public boolean[] getInContactWithSensor()
-	{
-		return inContactWithSensor;
-	}
 	
-	public void setInContactWithSensor(int _idSensor,boolean _status)
+	
+	public boolean setInContactWithSensor(int _idSensor,boolean _status)
 	{
+		
+		
+		
 			if(_idSensor == SENSOR_BOTTOM)
 			{inContactWithSensor[0] = _status;}
 			else if(_idSensor == SENSOR_LEFT)
@@ -372,6 +353,10 @@ public class player {
 			{inContactWithSensor[2] = _status;}
 			else if(_idSensor == SENSOR_TOP)
 			{inContactWithSensor[3] = _status;}
+		
+		
+		
+			return true;
 	}
 	
 	
