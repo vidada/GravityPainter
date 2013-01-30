@@ -1,0 +1,263 @@
+package com.badlogic.qbob.prototypestest;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Texture.TextureFilter;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.MassData;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
+
+//animation
+
+
+public class player {
+	public static final int OUT_UP = 11;
+	public static final int OUT_LEFT = 12;
+	public static final int OUT_RIGHT = 13;
+	public static final int OUT_UP_LEFT = 14;
+	public static final int OUT_UP_RIGHT = 15;
+
+	public static final int HEIGHT = 32;
+	public static final int WIDTH = 32;
+
+	private int statusAnim;
+	private Texture overallTexture;
+	private Sprite playerSprite;
+	private Animation animPerso;
+	private BodyDef bodyDef;
+	private Body body;
+	private boolean jump;
+	private int angleGravitee;
+	private Animation animPersoWalkLeft,animPersoWalkRight,animPersoJumpIn,animPersoStay,animPersoJumpOut,animPersoPuseRight,animPersoPuseLeft;
+	player()
+	{
+
+		bodyDef = new BodyDef();
+		angleGravitee = 0;
+		bodyDef.type = BodyDef.BodyType.DynamicBody;
+		bodyDef.position.set(0 * Utility.PIXELS_PER_METER, 0 * Utility.PIXELS_PER_METER);
+		animPersoWalkLeft= new Animation("animationmarcheL.png", 32, 32, 300);
+		animPersoWalkRight= new Animation("animationmarcheR.png", 32, 32, 300);
+		animPersoJumpIn= new Animation("animationjumpin.png", 32, 32, 1000);
+		animPersoStay =  new Animation("animationstay.png", 32, 32, 1000);
+		animPersoJumpOut =  new Animation("animationjumpout.png", 32, 32, 1000);
+		animPersoPuseRight =  new Animation("animationpousseR.png", 32, 32, 300);
+
+		//animPersoPuseLeft =  new Animation("animationpousseL.png", 32, 32, 1000);
+		PolygonShape groundBox  = new PolygonShape();
+
+		groundBox.setAsBox(16* Utility.PIXELS_PER_METER, (16* Utility.PIXELS_PER_METER));
+
+		//overallTexture = new Texture(Gdx.files.internal("datas/perso.png"));
+		//overallTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		body	= Utility.world.createBody(bodyDef);
+
+		body.createFixture(groundBox, 0.0f);
+
+		//playerSprite = new Sprite(overallTexture, 0,0, 32* (int)Utility.PIXELS_PER_METER, 32 * (int)Utility.PIXELS_PER_METER);
+
+		MassData ms = new MassData();
+		ms.mass = (float) 1500;
+		body.setMassData(ms);
+
+	}
+	//Sprite Get_Sprite()
+	//{
+	//return playerSprite;
+	//}
+
+
+	public void setAngleGravitee(int _angleGravitee)
+	{
+		angleGravitee = _angleGravitee;
+	}
+	public int getAngleGravitee()
+	{
+		return angleGravitee;
+	}
+	BodyDef Get_BodyDef()
+	{
+		return bodyDef;
+	}
+
+	Body Get_Body()
+	{
+		return body;
+	}
+	void moveRight()
+	{
+	
+		if (angleGravitee == 90)
+		{
+			body.applyForceToCenter(0.0f,100.0f);
+		}
+		if (angleGravitee == 180)
+		{
+			body.applyForceToCenter(-100.0f,0.0f);
+		}
+		if (angleGravitee == -90)
+		{
+			body.applyForceToCenter(0.0f,-100.0f);
+		}
+		if (angleGravitee == 0)//SOL OK
+		{
+			body.applyForceToCenter(100.0f,0.0f);
+			
+		}
+		if (canPuse())
+		{
+		statusAnim = Utility.PUSE_RIGHT;
+		}
+	}
+
+
+	
+
+
+
+	
+
+	//body.applyForceToCenter(100.0f,0.0f);
+
+void Jump()
+{
+
+
+
+	if(canjump())
+	{if (angleGravitee == 90)//OK
+	{
+		body.applyLinearImpulse(new Vector2(-100.0f, 0.0f), body.getPosition());
+	}
+	if (angleGravitee == 180)
+	{
+		body.applyLinearImpulse(new Vector2(0.0f, -100.0f), body.getPosition());
+	}
+	if (angleGravitee == -90)
+	{
+		body.applyLinearImpulse(new Vector2(100.0f, 0), body.getPosition());
+	}
+	if (angleGravitee == 0)//SOL OK
+	{
+		body.applyLinearImpulse(new Vector2(0, 100.0f), body.getPosition());
+		
+	}
+	
+		
+		setCanJump(false);
+
+	}
+
+
+
+}
+
+void moveLeft()
+{
+	
+		if (angleGravitee == 90)//OK
+		{
+			body.applyForceToCenter(0.0f,-100.0f);
+		}
+		if (angleGravitee == 180)
+		{
+			body.applyForceToCenter(100.0f,0.0f);
+		}
+		if (angleGravitee == -90)
+		{
+			body.applyForceToCenter(0.0f,100.0f);
+		}
+		if (angleGravitee == 0)
+		{
+			body.applyForceToCenter(-100.0f,0.0f);
+			
+		}
+		if (canPuse())
+		{
+		statusAnim = Utility.PUSE_RIGHT;
+	}
+	
+	//body.applyLinearImpulse(new Vector2(-500, 0), body.getPosition());
+	//body.applyLinearImpulse(new Vector2(-10000.05f, 0.0f),
+	//	body.getWorldCenter());
+
+}
+public boolean canjump()
+{
+	return jump;	
+}
+public TextureRegion draw(int _status) {
+	TextureRegion imgReturn = null;
+
+	statusAnim = _status;
+	
+	if( body.getLinearVelocity().x < 0 && canjump())
+	{imgReturn =  animPersoWalkLeft.getImageByTime();
+	}else if( body.getLinearVelocity().x > 0 && canjump())
+	{
+		imgReturn =  animPersoWalkRight.getImageByTime();
+
+	}else //ici
+	if( body.getLinearVelocity().y < 0 ) 
+	{
+		imgReturn =  animPersoJumpOut.getImageByTime();
+	}else if( body.getLinearVelocity().y > 0 )
+	{
+		imgReturn =  animPersoJumpIn.getImageByTime();
+	}else // ici
+
+		if(_status == Utility.RIGHT &&  canPuse() == true)
+		{
+			imgReturn = animPersoPuseRight.getImageByTime();  
+		}else if( _status == Utility.LEFT &&  canPuse())
+		{
+			imgReturn = animPersoPuseRight.getImageByTime();  
+		}else
+		{
+			imgReturn = animPersoStay.getImageByTime();
+		}
+
+	return imgReturn;
+}
+public boolean canPuse() {
+
+	if(body.getLinearVelocity().x == 0.0f && body.getLinearVelocity().y == 0.0f)
+	{
+		return true;
+	}
+	return false;
+}
+public float getX() {
+	return body.getPosition().x;
+}
+public float getY() {
+	return body.getPosition().y;
+}
+public boolean canStay() {
+	if(body.getLinearVelocity().x == 0.0f && body.getLinearVelocity().y == 0.0f){
+		return true;
+	}
+	return false;
+}
+public void stay() {
+	if(canStay()){
+		statusAnim = 0;
+	}
+
+}
+
+public void setCanJump(boolean _can) {
+
+	jump = _can;
+}
+
+
+
+
+
+}
+
+

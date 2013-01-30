@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="10" height="20" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="leveltileset" tilewidth="32" tileheight="32">
+  <image source="tiles.png" trans="000000" width="96" height="192"/>
+  <tile id="1">
+   <properties>
+    <property name="block" value="1"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="19" name="editor" tilewidth="32" tileheight="32">
+  <image source="editor.png" trans="ffffff" width="96" height="192"/>
+  <tile id="0">
+   <properties>
+    <property name="block" value="1"/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="start" value="1"/>
+   </properties>
+  </tile>
+  <tile id="4">
+   <properties>
+    <property name="end" value="1"/>
+   </properties>
+  </tile>
+  <tile id="5">
+   <properties>
+    <property name="ruban" value="1"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="collisions" width="10" height="20" opacity="0.74">
+  <properties>
+   <property name="blocked" value="1"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJxjYEAAJgbsgBGHODWAOJHqhKGYWuqI1StBZTtwAWz2kGsvNnWDPfyo5T4xIvUKE4kBOTEDJQ==
+  </data>
+ </layer>
+ <layer name="terain" width="10" height="20" opacity="0.59">
+  <data encoding="base64" compression="zlib">
+   eJyNkksOhDAMQ+OUYQMCMfc/LFkkkrHawuKJn42xRTMzD5DHljhh+RykReogWvZDzvEhS+/V9R5skt3Tn8ExyEHnveytDJ9oG2WAKK9qK7fn5d66j/o1w+3ZibvwBt7xYoJ20y1G23GGarTP2/exh/fQ79OttMvsH1qC34B/cAVrcAM7/AMU
+  </data>
+ </layer>
+</map>

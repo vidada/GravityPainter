@@ -1,0 +1,83 @@
+package com.badlogic.qbob.prototypestest;
+
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.physics.box2d.QueryCallback;
+
+final class YourCallback implements QueryCallback {
+	private player personnage;
+	private Level map;
+	private int typeDeQuery;
+	private final int COLLISIONS = 1;
+	private final int PAINTER = 2;
+	public YourCallback(player _perso)
+	{
+		typeDeQuery = COLLISIONS;
+		personnage =  _perso;
+	}
+	public YourCallback(Level _map)
+	{
+		typeDeQuery = PAINTER;
+		map = _map;
+	}
+
+	
+	public boolean reportFixture(final Fixture fixture)
+	{
+
+
+		if (fixture.getBody() != null) {
+			Body BodyClicked = fixture.getBody();
+			if(typeDeQuery == COLLISIONS)
+			{
+				if(BodyClicked != personnage.Get_Body())
+				{
+
+					//System.out.println(" CAN JUMPalltime");
+					//is on ground  
+					if((int)(personnage.Get_Body().getPosition().y - BodyClicked.getPosition().y) == 32 && Math.abs((int)personnage.Get_Body().getPosition().x - (int)BodyClicked.getPosition().x) < 32 && Math.abs((int)personnage.Get_Body().getPosition().x - (int)BodyClicked.getPosition().x) > 0 && personnage.Get_Body().getLinearVelocity().y == 0)
+					{
+					//	System.out.println(" CAN JUMP");
+						personnage.setCanJump(true);
+						
+					}
+					
+				
+				
+			}else if(typeDeQuery == PAINTER)
+			{
+
+
+				map.changeTile((int)BodyClicked.getPosition().x/32, (int)BodyClicked.getPosition().y/32, 2);		
+				//System.out.println("PAINTED AT X : " +BodyClicked.getPosition().x +" Y : " +BodyClicked.getPosition().y );
+			}
+
+
+
+			/*
+	        	BodyDef bodyDef = new BodyDef();
+
+	    		bodyDef.type = BodyDef.BodyType.StaticBody;
+	    		bodyDef.position.set(BodyClicked.getPosition().x * Utility.PIXELS_PER_METER, BodyClicked.getPosition().y  * Utility.PIXELS_PER_METER);
+
+
+	    PolygonShape groundBox  = new PolygonShape();
+
+	    groundBox.setAsBox(10* Utility.PIXELS_PER_METER, (10* Utility.PIXELS_PER_METER));
+
+	    		//overallTexture = new Texture(Gdx.files.internal("datas/perso.png"));
+	    		//overallTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+	    Body	body	= Utility.world.createBody(bodyDef);
+
+	    		body.createFixture(groundBox, 0.0f);
+	            // Do whatever you like.
+			 */
+			return true; // Return false if you want to stop after this fixture.
+		}
+		return true; // Return true, if you want to check the next fixture.
+	}
+		return false;
+
+
+	}
+}

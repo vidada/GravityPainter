@@ -1,0 +1,162 @@
+package com.badlogic.qbob.prototypestest;
+
+import java.util.Map;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.CircleShape;
+import com.badlogic.gdx.physics.box2d.Fixture;
+
+public class Gravity {
+
+	
+	private int x,y,type,orientation;
+	private double timer = 0;
+	private int tempsPeinture = 5000;
+
+	public Gravity(int _x,int _y){
+		
+		orientation = 0;
+		x = _x;
+		y = _y;
+		setTimer();
+		
+	}
+	public boolean restartTimer() 
+	{
+		setTimer();
+		return true;
+	}
+	public boolean getTimerElapsed()
+	{
+		double current = System.currentTimeMillis();
+		
+		if(current > timer + tempsPeinture )
+		{
+			return true;
+		}
+		return false;
+	}
+	public void setTimer()
+	{
+		timer =  System.currentTimeMillis(); 
+	}
+
+	public boolean onDestroy() {
+	//TODO
+	return true;
+	}
+	//public Animation getAnimation() {
+		
+//		return anim;
+	//}
+	public int getX() {
+		
+		return x;
+	}
+	public int getY() {
+		
+		return y;
+	}
+	public int getOrientation(){
+		return orientation;
+	}
+	public void setOrientation(int _orientation)
+	{
+		orientation=_orientation;
+/*
+		if(( map.getTileProperty(map.layers.get(0).tiles[map.height-y][x], "block") != null))
+		{ 
+			if(( map.getTileProperty(map.layers.get(0).tiles[map.height-y-1][x+1], "block") != null) && (map.getTileProperty(map.layers.get(0).tiles[map.height-y-1][x-1], "block") == null))
+			{ 
+				gravitys.get(idGravity).setOrientation(LEFT);
+				//LEFT
+			}
+			if(( map.getTileProperty(map.layers.get(0).tiles[map.height-y-1][x+1], "block") == null) && (map.getTileProperty(map.layers.get(0).tiles[map.height-y-1][x-1], "block") != null))
+			{ 
+				gravitys.get(idGravity).setOrientation(RIGHT);
+				// RIGHT
+			}
+			if(( map.getTileProperty(map.layers.get(0).tiles[map.height-y][x], "block") == null) && (map.getTileProperty(map.layers.get(0).tiles[map.height-y-2][x], "block") != null))
+			{ 
+				//DOWN
+				gravitys.get(idGravity).setOrientation(UP);
+			}
+			if(( map.getTileProperty(map.layers.get(0).tiles[map.height-y-2][x], "block") == null) && (map.getTileProperty(map.layers.get(0).tiles[map.height-y][x], "block") != null))
+			{
+				//UP
+				setOrientation(DOWN);
+			}
+			
+		}
+	*/
+	}
+	
+	
+	public boolean isInContact(player _perso)
+	{
+	//TODO toutes les tailles de sprites	
+		boolean tmp = isInContact(_perso.Get_Body().getPosition().x,_perso.Get_Body().getPosition().y,_perso.HEIGHT);
+		return tmp;
+	}
+	public boolean isInContact(float _xContact, float _yContact, int _hitboxLength) {
+	{
+		boolean inContact = false;
+		if(!getTimerElapsed()){
+			
+
+	int testXmin = (int) Math.floor(_xContact /_hitboxLength)-1;
+	int testXmax = (int) Math.ceil((_xContact/_hitboxLength));
+	int testYmin = (int) Math.floor((_yContact /_hitboxLength));
+	int testYmax = (int) Math.ceil((_yContact/ _hitboxLength));
+			
+//	System.out.println("MOI Xmin: "+testXmin +"Ymin:"+testYmin + "GRAVITY xmax:"+testXmax+"ymax:"+testYmax+"position Gravity X:"+x+"Y:"+y);
+
+
+	if((testXmin == x || testXmax == x)&&( testYmin== y || testYmax == y))
+		{
+			inContact = true;
+		}else
+		{
+	
+			inContact = false;
+		
+		}
+		}
+		return inContact;
+		
+	}
+	}
+	
+	
+	
+//////////////////////////////////////////////////
+	
+public void addGravity(int _x,int _y,int _r) { //crée une gravitée x y et le rayon
+	
+	
+	CircleShape groundBox  = new CircleShape();
+
+	groundBox.setRadius(_r);
+	groundBox.setPosition(new Vector2(_x,_y));
+	BodyDef bodyDef;
+	bodyDef = new BodyDef();
+	
+	Body body = Utility.world.createBody(bodyDef);
+	
+	Fixture fix = body.createFixture(groundBox,0.0f);
+	fix.setRestitution(0);//rebond
+	fix.setDensity(1);
+
+	
+	 ShapeRenderer shapeRenderer;
+	 
+	 shapeRenderer = new ShapeRenderer();
+	 shapeRenderer.circle(_x, _y, _r * 3);
+	
+}
+////////////////////////////////////////////
+}

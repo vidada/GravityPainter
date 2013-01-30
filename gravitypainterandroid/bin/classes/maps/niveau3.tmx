@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="10" height="20" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="leveltileset" tilewidth="32" tileheight="32">
+  <image source="tiles.png" trans="000000" width="96" height="192"/>
+  <tile id="1">
+   <properties>
+    <property name="block" value="1"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="19" name="editor" tilewidth="32" tileheight="32">
+  <image source="editor.png" trans="ffffff" width="96" height="192"/>
+  <tile id="0">
+   <properties>
+    <property name="block" value="1"/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="start" value="1"/>
+   </properties>
+  </tile>
+  <tile id="4">
+   <properties>
+    <property name="end" value="1"/>
+   </properties>
+  </tile>
+  <tile id="5">
+   <properties>
+    <property name="ruban" value="1"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="37" name="tilessid" tilewidth="32" tileheight="32">
+  <image source="tilessid.png" width="128" height="192"/>
+ </tileset>
+ <tileset firstgid="61" name="meca" tilewidth="32" tileheight="32">
+  <image source="meca.png" width="128" height="192"/>
+  <tile id="0">
+   <properties>
+    <property name="die" value="1"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="85" name="tilesnuage" tilewidth="32" tileheight="32">
+  <image source="tilesnuage.png" width="128" height="192"/>
+ </tileset>
+ <layer name="collisions" width="10" height="20" opacity="0.27">
+  <properties>
+   <property name="blocked" value="1"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJxjYEAAJgbsgBGHODWAOJHqhKGYXHUSdLCDEoDuPmzuxWYvJWKkgMHuPhgQwyOHbIcwkRgAlfEDVQ==
+  </data>
+ </layer>
+ <layer name="terain" width="10" height="20" opacity="0.36">
+  <data encoding="base64" compression="zlib">
+   eJwLZ2BgCCcBhwJxGIl6qKFXFYjViFCnDsQaVLADn1spsYMSjC0MsIlhcx893DyU3Adia+HAukBsAFULAAwUPT8=
+  </data>
+ </layer>
+ <layer name="mecanisme" width="10" height="20">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AU4AIAAyAAAQ==
+  </data>
+ </layer>
+</map>

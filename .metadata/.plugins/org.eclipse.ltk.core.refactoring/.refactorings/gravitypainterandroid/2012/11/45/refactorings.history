@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;meca.png&apos; to &apos;gravitypainterandroid/assets&apos;&#x0D;&#x0A;- Original project: &apos;gravitypainterandroid&apos;&#x0D;&#x0A;- Destination element: &apos;gravitypainterandroid/assets&apos;&#x0D;&#x0A;- Original element: &apos;meca.png&apos;" description="Copy file" destination="/assets" element1="assets/maps/meca.png" files="1" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1352447147193" units="0" version="1.0"/>
+</session>

@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">&#x0A;<refactoring comment="Rename resource &apos;test_libgdx_Desktop/maps/niveau1.tmx&apos; to &apos;niveauqq21.tmx&apos;" description="Rename resource &apos;niveau1.tmx&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="maps/niveau1.tmx" name="niveauqq21.tmx" stamp="1356572204566" updateReferences="true"/>&#x0A;<refactoring comment="Rename resource &apos;test_libgdx_Desktop/maps/niveau2.tmx&apos; to &apos;niveau1.tmx&apos;" description="Rename resource &apos;niveau2.tmx&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="maps/niveau2.tmx" name="niveau1.tmx" stamp="1356572217577" updateReferences="true"/>
+</session>

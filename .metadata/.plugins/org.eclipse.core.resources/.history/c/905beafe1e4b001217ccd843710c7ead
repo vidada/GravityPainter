@@ -1,0 +1,400 @@
+package com.badlogic.qbob.prototypestest;
+import com.badlogic.gdx.Audio;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Texture.TextureFilter;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.CircleShape;
+import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.MassData;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
+
+//animation
+
+
+public class player {
+	public static final int OUT_UP = 11;
+	public static final int OUT_LEFT = 12;
+	public static final int OUT_RIGHT = 13;
+	public static final int OUT_UP_LEFT = 14;
+	public static final int OUT_UP_RIGHT = 15;
+
+	public static final int HEIGHT = 32;
+	public static final int WIDTH = 32;
+
+	private int statusAnim;
+	private Texture overallTexture;
+	private Sprite playerSprite;
+	private Animation animPerso;
+	private BodyDef bodyDef;
+	private Body body;
+	private Fixture fixPersonnage;
+	private boolean jump;
+	private int angleGravitee;
+	private boolean inContact;
+	private float vitesse;
+	private Animation animPersoWalkLeft,animPersoWalkRight,animPersoJumpIn,animPersoStay,animPersoJumpOut,animPersoPuseRight,animPersoPuseLeft;
+	
+	
+	
+	private Sound soundMarche,soundJump1,soundJump2,soundJump3;
+	player()
+	{
+		inContact = true;
+		bodyDef = new BodyDef();
+		angleGravitee = 0;
+		bodyDef.type = BodyDef.BodyType.DynamicBody;
+		bodyDef.position.set(0 * Utility.PIXELS_PER_METER, 0 * Utility.PIXELS_PER_METER);
+		animPersoWalkLeft= new Animation("animationmarcheL.png", 32, 32, 300);
+		animPersoWalkRight= new Animation("animationmarcheR.png", 32, 32, 300);
+		animPersoJumpIn= new Animation("animationjumpin.png", 32, 32, 1000);
+		animPersoStay =  new Animation("animationstay.png", 32, 32, 1000);
+		animPersoJumpOut =  new Animation("animationjumpout.png", 32, 32, 1000);
+		animPersoPuseRight =  new Animation("animationpousseR.png", 32, 32, 300);
+		soundJump1 = Gdx.audio.newSound(Gdx.files.internal("jump.ogg"));
+		soundJump2 = Gdx.audio.newSound(Gdx.files.internal("jump2.ogg"));
+		soundJump3 = Gdx.audio.newSound(Gdx.files.internal("jump3.ogg"));
+		soundMarche = Gdx.audio.newSound(Gdx.files.internal("marche.ogg"));
+	
+		
+		//animPersoPuseLeft =  new Animation("animationpousseL.png", 32, 32, 1000);
+		
+		//PolygonShape groundBox  = new PolygonShape();
+		CircleShape groundBox  = new CircleShape();
+vitesse = 100;
+		//groundBox.setAsBox(16* Utility.PIXELS_PER_METER, (16* Utility.PIXELS_PER_METER));
+		groundBox.setRadius(16);
+		//overallTexture = new Texture(Gdx.files.internal("datas/perso.png"));
+		//overallTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		
+		body	= Utility.world.createBody(bodyDef);
+		
+		Fixture fix = body.createFixture(groundBox,0.0f);
+
+		//playerSprite = new Sprite(overallTexture, 0,0, 32* (int)Utility.PIXELS_PER_METER, 32 * (int)Utility.PIXELS_PER_METER);
+
+		MassData ms = new MassData();
+		ms.mass = (float) 1;
+		body.setMassData(ms);
+
+	}
+	//Sprite Get_Sprite()
+	//{
+	//return playerSprite;
+	//}
+
+
+	public void setAngleGravitee(int _angleGravitee)
+	{
+		angleGravitee = _angleGravitee;
+	}
+	public int getAngleGravitee()
+	{
+		return angleGravitee;
+	}
+	BodyDef Get_BodyDef()
+	{
+		return bodyDef;
+	}
+
+	Body Get_Body()
+	{
+		return body;
+	}
+	
+	
+	
+	
+	
+
+	void moveRight()
+	{
+		if (angleGravitee == 90)
+		{
+			body.applyLinearImpulse(0, vitesse, body.getWorldCenter().x, body.getWorldCenter().y);
+		}
+		if (angleGravitee == 180)
+		{
+			body.applyLinearImpulse(vitesse, 0, body.getWorldCenter().x, body.getWorldCenter().y);
+		}
+		if (angleGravitee == -90)
+		{
+			body.applyLinearImpulse(0, -vitesse, body.getWorldCenter().x, body.getWorldCenter().y);
+		}
+		if (angleGravitee == 0)//SOL OK
+		{
+			
+		
+			
+//		    body.applyLinearImpulse( impulse, 0,body.getWorldCenter().x, body.getWorldCenter().y);
+
+		    body.applyForceToCenter(vitesse, 0);
+
+
+
+
+
+		}
+		if (canPuse())
+		{
+			statusAnim = Utility.PUSE_RIGHT;
+		}
+		inContact= true;
+	}
+
+
+
+	
+	
+	
+	void moveLeft()
+	{  
+		
+	
+
+
+		if (angleGravitee == 90)
+		{
+			body.applyLinearImpulse(0, -vitesse, body.getWorldCenter().x, body.getWorldCenter().y);
+		}
+		if (angleGravitee == 180)
+		{
+			body.applyLinearImpulse(-vitesse, 0, body.getWorldCenter().x, body.getWorldCenter().y);
+		}
+		if (angleGravitee == -90)
+		{
+			body.applyLinearImpulse(0, vitesse, body.getWorldCenter().x, body.getWorldCenter().y);
+		}
+		if (angleGravitee == 0)//SOL OK
+		{
+			
+		
+			
+			 body.applyForceToCenter(-vitesse, 0);
+
+
+
+
+		}
+		if (canPuse())
+		{
+			statusAnim = Utility.PUSE_RIGHT;
+		}
+	inContact= true;
+	}
+
+
+
+
+
+
+
+
+	//body.applyForceToCenter(100.0f,0.0f);
+
+	void Jump()
+	{
+
+
+	
+		if(canjump())
+		{
+		int random	=1 + (int)(Math.random() * ((3 - 1) + 1));
+				 if(random == 1)
+				 {
+					 soundJump1.play();	 
+				 }else if(random == 2)
+				 {
+					 soundJump2.play();
+				 }else if(random == 3)
+				 {
+					 soundJump3.play();
+				 }
+				
+			if (angleGravitee == 90)//OK
+		{
+			body.applyLinearImpulse(new Vector2(-300.0f, 0.0f), body.getPosition());
+		}
+		if (angleGravitee == 180)
+		{
+			body.applyLinearImpulse(new Vector2(0.0f, -300.0f), body.getPosition());
+		}
+		if (angleGravitee == -90)
+		{
+			body.applyLinearImpulse(new Vector2(300.0f, 0), body.getPosition());
+		}
+		if (angleGravitee == 0)//SOL OK
+		{
+			
+			body.applyLinearImpulse(new Vector2(0, 300), body.getPosition());
+		}
+
+
+		setCanJump(false);
+
+		}
+
+		inContact= false;
+
+	}
+
+	
+	public boolean canjump()
+	{
+		 if(inContact)
+		 {
+			return jump;
+		 }
+		return false;	
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	public TextureRegion draw(int _status) {
+		TextureRegion imgReturn = null;
+
+if (angleGravitee == 90)//OK
+		{
+			if( body.getLinearVelocity().y < 0 && jump) // marche a gauche
+			{imgReturn =  animPersoWalkLeft.getImageByTime();
+			}else if( body.getLinearVelocity().y > 0 && jump)  // marche a Droite
+			{
+				imgReturn =  animPersoWalkRight.getImageByTime();
+
+			}else if( body.getLinearVelocity().x < 0 )// marche en bas
+			{
+				imgReturn =  animPersoJumpOut.getImageByTime();
+			}else if( body.getLinearVelocity().x > 0 ) // marche en haut
+			{
+				imgReturn =  animPersoJumpIn.getImageByTime();
+			}else // stay
+			{
+				imgReturn = animPersoStay.getImageByTime();
+			}
+		}
+		if (angleGravitee == 180)
+		{
+			if( body.getLinearVelocity().x > 0 && jump) // marche a gauche
+			{imgReturn =  animPersoWalkLeft.getImageByTime();
+			}else if( body.getLinearVelocity().x < 0 && jump)  // marche a Droite
+			{
+				imgReturn =  animPersoWalkRight.getImageByTime();
+
+			}else if( body.getLinearVelocity().y > 0 )// marche en bas
+			{
+				imgReturn =  animPersoJumpOut.getImageByTime();
+			}else if( body.getLinearVelocity().y < 0 ) // marche en haut
+			{
+				imgReturn =  animPersoJumpIn.getImageByTime();
+			}else // stay
+			{
+				imgReturn = animPersoStay.getImageByTime();
+			}
+		}
+		if (angleGravitee == -90)
+		{
+			if( body.getLinearVelocity().y > 0 && jump) // marche a gauche
+			{imgReturn =  animPersoWalkLeft.getImageByTime();
+			}else if( body.getLinearVelocity().y < 0 && jump)  // marche a Droite
+			{
+				imgReturn =  animPersoWalkRight.getImageByTime();
+
+			}else if( body.getLinearVelocity().x > 0 )// marche en bas
+			{
+				imgReturn =  animPersoJumpOut.getImageByTime();
+			}else if( body.getLinearVelocity().x < 0 ) // marche en haut
+			{
+				imgReturn =  animPersoJumpIn.getImageByTime();
+			}else // stay
+			{
+				imgReturn = animPersoStay.getImageByTime();
+			}
+		}
+		if (angleGravitee == 0)
+		{
+			 if( body.getLinearVelocity().y < 0 )
+			{
+				imgReturn =  animPersoJumpOut.getImageByTime();
+			}else if( body.getLinearVelocity().y > 0 ) 
+			{
+				imgReturn =  animPersoJumpIn.getImageByTime();
+			}
+			else if( body.getLinearVelocity().x < 0 && jump) // marche a gauche
+			{imgReturn =  animPersoWalkLeft.getImageByTime();
+			}else if( body.getLinearVelocity().x > 0 && jump)  // marche a Droite
+			{
+				imgReturn =  animPersoWalkRight.getImageByTime();
+
+			}
+			else{
+				imgReturn =  animPersoJumpIn.getImageByTime();
+			if(_status == Utility.RIGHT &&  canPuse() == true) //puse right
+			{
+				imgReturn = animPersoPuseRight.getImageByTime();  
+			}else if( _status == Utility.LEFT &&  canPuse())//puse left
+			{
+				imgReturn = animPersoPuseRight.getImageByTime();  
+			}else // stay
+			{
+				imgReturn = animPersoStay.getImageByTime();
+			}
+			}
+		}
+		return imgReturn;
+	}
+	public boolean canPuse() {
+
+		if(body.getLinearVelocity().x == 0.0f && body.getLinearVelocity().y == 0.0f)
+		{
+			return true;
+		}
+		return false;
+	}
+	public float getX() {
+		return body.getPosition().x;
+	}
+	public float getY() {
+		return body.getPosition().y;
+	}
+	public boolean canStay() {
+		if(body.getLinearVelocity().x == 0.0f && body.getLinearVelocity().y == 0.0f){
+			return true;
+		}
+		return false;
+	}
+	public void stay() {
+		if(canStay()){
+			statusAnim = 0;
+		}
+
+	}
+
+	public void setCanJump(boolean _can) {
+
+		jump = _can;
+	}
+
+
+	public void setInContactWithGround(boolean _inContact) {
+		inContact = _inContact;
+		
+	}
+
+
+
+
+
+}
+
+

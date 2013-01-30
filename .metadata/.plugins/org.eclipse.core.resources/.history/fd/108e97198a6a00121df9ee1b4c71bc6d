@@ -1,0 +1,146 @@
+package com.badlogic.qbob.prototypestest;
+
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.Contact;
+import com.badlogic.gdx.physics.box2d.ContactImpulse;
+import com.badlogic.gdx.physics.box2d.ContactListener;
+import com.badlogic.gdx.physics.box2d.Manifold;
+
+final class contactListener implements ContactListener {
+
+
+	private player personnage;
+	private GestionaireGravity gravitys;
+	private Weightlessness gravitee;
+	private int nbcontactencour;
+
+
+
+	public contactListener(player _personnage, GestionaireGravity _gravitys,Weightlessness _gravitee) {
+		personnage = _personnage;
+		gravitys = _gravitys;
+		gravitee = _gravitee;
+
+	}
+
+	public void preSolve(Contact contact, Manifold oldManifold) 
+	{
+		System.out.println("PREEEEEEEEEEEEEEEEEEE ");
+
+
+	}
+
+
+	public void postSolve(Contact contact, ContactImpulse impulse)
+	{
+		System.out.println("POSSTTTTTTTTTTTTTTTTTTTTT ");
+
+
+	}
+
+
+	public void endContact(Contact contact) 
+	{
+		Body a =  contact.getFixtureA().getBody();
+		Body b =  contact.getFixtureB().getBody();
+		int aData = (Integer)a.getUserData();
+		int bData =  (Integer)b.getUserData();
+		if((aData == player.SENSOR_BOTTOM && bData == Gravity.TILE)|| (bData == player.SENSOR_BOTTOM && aData == Gravity.TILE))
+		{
+			nbcontactencour--;
+			if (nbcontactencour == 0)
+			{
+				personnage.setCanJump(false);
+			}	
+		}
+	}
+
+	public void Bettween2ContactCollision() 
+	{
+		Iterator<Contact> iContact = Utility.world.getContactList().iterator();
+		while(iContact.hasNext()){
+
+			Contact contact = iContact.next();
+			Body a = contact.getFixtureA().getBody();
+			Body b =  contact.getFixtureB().getBody();
+			int aData =  (Integer) a.getUserData();
+			int bData =  (Integer) b.getUserData();
+
+			if((aData == player.SENSOR_BOTTOM && bData == Gravity.TILE)|| (bData == player.SENSOR_BOTTOM && aData == Gravity.TILE))
+			{
+				nbcontactencour=nbcontactencour+1;
+				System.out.println("le contact marche");
+				personnage.setCanJump(true);
+
+			}
+
+
+			// SI LE SENSOR LEFT EST EN CONTACT AVEC UNE TILE DE GRAVITE
+
+			for (int iSensor = 10001; iSensor <= 10004; iSensor++) {
+				{
+
+					if((aData == iSensor && bData == Gravity.TILE) || (bData ==  iSensor && aData == Gravity.TILE))
+					{
+						System.out.println("CONTACT AVEC UNE TILE DE GRAVITE ACTIVE !--- : "+ iSensor);
+						boolean isInContact = false;
+						if(aData == iSensor)
+						{
+
+							Gravity grav = gravitys.thisBodyTile(b);
+							if(grav != null)
+							{
+								isInContact = grav.isInContact(b.getPosition());
+							}
+						}
+						else
+						{
+
+							Gravity grav = gravitys.thisBodyTile(a);
+							grav.isInContact(a.getPosition());
+							if(grav != null)
+							{
+								isInContact = grav.isInContact(a.getPosition());
+							}
+
+						}	
+
+						if(isInContact)  
+						{
+							if(iSensor == player.SENSOR_BOTTOM)
+							{
+								personnage.setAngleGravitee(0);
+							}
+							else if(iSensor == player.SENSOR_RIGHT)
+							{
+								personnage.setAngleGravitee(90);
+							}
+
+						}
+
+					}			
+
+
+
+				}
+
+			}
+
+
+
+		}
+
+
+	}
+	public void beginContact(Contact contact) 
+	{
+
+
+	}
+
+}

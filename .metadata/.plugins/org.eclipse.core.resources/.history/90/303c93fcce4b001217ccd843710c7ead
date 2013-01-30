@@ -1,0 +1,87 @@
+package com.badlogic.qbob.prototypestest;
+
+import java.util.Map;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.CircleShape;
+import com.badlogic.gdx.physics.box2d.Fixture;
+
+public class Gravity {
+	private int x,y,r;
+	private double timer = 0;	
+	private int tempsPeinture = 5000;
+	BodyDef bodyDef;
+	CircleShape groundBox ;
+	Body body;
+	Fixture fix;
+	 ShapeRenderer shapeRenderer;
+public  Gravity(int _x,int _y,int _r) { //crée une gravitée x y et le rayon
+	x = _x;
+	y = _y;
+	r= _r;
+	setTimer();
+	 groundBox  = new CircleShape();
+
+	groundBox.setRadius(r);
+	groundBox.setPosition(new Vector2(x,y));
+	
+	bodyDef = new BodyDef();
+	
+	 body = Utility.world.createBody(bodyDef);
+	
+	 fix = body.createFixture(groundBox,0.0f);
+	fix.setRestitution(0);//rebond
+	fix.setDensity(1);
+
+	
+	
+	 
+	 shapeRenderer = new ShapeRenderer();
+	 shapeRenderer.begin(ShapeType.Circle);
+	 shapeRenderer.circle(x, y, r * 3);
+	 shapeRenderer.end();
+}
+
+public boolean restartTimer() 
+{
+	setTimer();
+	return true;
+}
+public boolean getTimerElapsed()
+{
+	double current = System.currentTimeMillis();
+	
+	if(current > timer + tempsPeinture )
+	{
+		return true;
+	}
+	return false;
+}
+public void setTimer()
+{
+	timer =  System.currentTimeMillis(); 
+}
+
+public boolean onDestroy() {
+//TODO
+return true;
+}
+//public Animation getAnimation() {
+	
+//	return anim;
+//}
+public int getX() {
+	
+	return x;
+}
+public int getY() {
+	
+	return y;
+}
+
+}

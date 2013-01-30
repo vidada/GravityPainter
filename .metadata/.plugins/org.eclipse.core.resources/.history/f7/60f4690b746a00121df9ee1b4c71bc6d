@@ -1,0 +1,206 @@
+package com.badlogic.qbob.prototypestest;
+
+import java.util.HashMap;
+import java.util.Map;
+//class qui gere une case de gravitée
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.tiled.TiledMap;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
+
+public class GestionaireGravity {
+
+
+	static final int UP = 1;
+	static final int DOWN = 2;
+	static final int LEFT = 3;
+	static final int RIGHT = 4;
+	private static Animation anim;
+
+
+
+	private SpriteBatch spriteBatch;
+
+	private TiledMap map;
+	private player personnage;
+
+	private Map<Integer, Gravity> gravitys;
+	private int idGravity;
+	public GestionaireGravity(player _perso)
+	{
+		gravitys = new HashMap<Integer, Gravity>();
+		personnage = _perso;
+		spriteBatch = new SpriteBatch();
+		anim = new Animation("gravitee.png",32,32,200);
+	}
+
+	public void addMap(Level _level)
+	{
+		map = _level.Get_TiledMap();
+	}
+	public Gravity get(int _id) 
+	{
+
+		return gravitys.get(_id);
+	}
+
+	public void add(int _x , int _y, int _r)
+	{
+
+		boolean exist = false;
+		int x = _x;
+		int y = _y;
+		int r = _r;
+		for (int key : gravitys.keySet()) 
+		{
+			if((x== gravitys.get(key).getX() &&	y == gravitys.get(key).getY()))
+			{
+				//TODO GRAVPAS PERSO
+				System.out.println("EXISTE DEJA  !!!!!!!!!!!!");
+				exist = true;
+
+				gravitys.get(key).setTimer();
+			}
+		}
+
+		if(exist == false)
+		{
+			gravitys.put(idGravity, new Gravity(x, y, r));
+
+
+			System.out.println("ADD GRAVITY !!!" + x + " : " + y);
+			idGravity++;
+		}
+
+
+	}
+
+
+	public void draw(OrthographicCamera cam)
+	{
+
+
+		for (int key : gravitys.keySet()) 
+		{
+			int y=get(key).getY();
+			int x=get(key).getX();
+
+			String testBlock = map.getTileProperty(map.layers.get(0).tiles[map.height-y-1][x], "block");
+
+			if(testBlock != null)
+			{
+				if(testBlock.equals("1"))
+				{
+					if (get(key) != null)
+					{
+						if(get(key).getTimerElapsed())
+						{
+						}else
+						{
+
+							spriteBatch.begin();
+							spriteBatch.draw(anim.getImageByTime(),(x *32 )- cam.position.x +Utility.WIDTH/2 ,((y*32- cam.position.y)+Utility.HEIGHT/2));
+							spriteBatch.end();
+
+						}
+					}
+				}
+			}
+		}
+	}
+
+	public	boolean del(int _id)
+	{
+		gravitys.remove(_id);
+		return true;
+	}
+	public boolean delAll() 
+	{
+
+
+		gravitys.clear();
+		idGravity = 0;
+		return true;
+	}
+	public Gravity thisBody(Body _body)
+	{
+
+		for (int mapKey : gravitys.keySet()) 
+		{
+			if(gravitys.get(mapKey).getBody() == _body)
+			{
+				return 	gravitys.get(mapKey);
+			}
+		}
+		return null;
+	}
+	public void render()
+	{
+
+		for (int mapKey : gravitys.keySet()) 
+		{
+
+			if(!gravitys.get(mapKey).getTimerElapsed())
+			{
+				Vector2 boxPosition = gravitys.get(mapKey).getBody().getPosition();
+				Vector2 playerPosition = personnage.Get_Body().getPosition();
+				Vector2 boxDistance = new Vector2(0,0);//distance entre la block et le joueur
+
+				boxDistance.add(playerPosition);
+				boxDistance.sub(boxPosition);
+				float finalDistance = boxDistance.len();
+				float rayonBox = gravitys.get(mapKey).getGroundBox().getRadius();
+				float vecSum = 0;
+
+				if(finalDistance <= rayonBox)
+				{
+
+					boxDistance.x = -boxDistance.x;
+					boxDistance.y = -boxDistance.y;	
+					vecSum = Math.abs(boxDistance.x)+Math.abs(boxDistance.y);
+
+					boxDistance.mul((1/vecSum)*(rayonBox)/finalDistance);
+					boxDistance.x =boxDistance.x*100;
+					boxDistance.y =boxDistance.y*100;
+					personnage.Get_Body().applyForceToCenter(boxDistance);
+				}
+			}
+		}
+	}
+
+
+
+	public HashMap<Integer, Gravity> InContact(Vector2 _with,int _size) {
+		HashMap<Integer, Gravity> pointsInContact = null;
+
+
+		pointsInContact = new HashMap<Integer, Gravity>();
+		int  i=0;
+
+
+		for (int mapKey : gravitys.keySet()) 
+		{
+			if( gravitys.get(mapKey).isInContact(_with))
+			{
+				//System.out.println("Incontact true " +  gravitys.get(mapKey).getBody().getPosition().x  +" y : " +gravitys.get(mapKey).getBody().getPosition().y);
+				pointsInContact.put(i, gravitys.get(mapKey));
+				i++;
+			}
+
+
+		}
+
+		return pointsInContact;
+	}
+
+
+
+}
+
+
+
+
+
+
+

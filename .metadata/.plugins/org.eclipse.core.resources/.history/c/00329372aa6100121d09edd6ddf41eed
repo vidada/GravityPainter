@@ -1,0 +1,109 @@
+package com.badlogic.qbob.prototypestest;
+
+
+import java.util.HashMap;
+
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.Contact;
+import com.badlogic.gdx.physics.box2d.ContactImpulse;
+import com.badlogic.gdx.physics.box2d.ContactListener;
+import com.badlogic.gdx.physics.box2d.Manifold;
+
+final class contactListener implements ContactListener {
+
+
+	private player personnage;
+	private GestionaireGravity gravitys;
+	private Weightlessness gravitee;
+	private int nbcontactencour;
+
+
+
+	public contactListener(player _personnage, GestionaireGravity _gravitys,Weightlessness _gravitee) {
+		personnage = _personnage;
+		gravitys = _gravitys;
+		gravitee = _gravitee;
+
+	}
+
+	public void preSolve(Contact contact, Manifold oldManifold) 
+	{
+
+
+	}
+
+
+	public void postSolve(Contact contact, ContactImpulse impulse)
+	{
+		//		Body a =  contact.getFixtureA().getBody();
+		//		Body b =  contact.getFixtureB().getBody();
+		//		String aData = (String)a.getUserData();
+		//		String bData = (String)b.getUserData();
+		//		
+		//		if((aData == "SENSOR_PLAYER_FOOTER"&& bData == "TILE_DE_GRAVITE")|| (bData == "SENSOR_PLAYER_FOOTER" && aData == "TILE_DE_GRAVITE"))
+		//		{
+		//			System.out.println("le contact POST");
+		//				personnage.setCanJump(true);
+		//				
+		//		}
+
+	}
+
+
+	public void endContact(Contact contact) 
+	{
+		Body a =  contact.getFixtureA().getBody();
+		Body b =  contact.getFixtureB().getBody();
+		String aData = (String)a.getUserData();
+		String bData = (String)b.getUserData();
+		if((aData == "SENSOR_PLAYER_FOOTER" && bData == "TILE_DE_GRAVITE")|| (bData == "SENSOR_PLAYER_FOOTER" && aData == "TILE_DE_GRAVITE"))
+		{
+			nbcontactencour--;
+			System.out.println("le contact est coupernbcontactencour" + nbcontactencour);
+			if (nbcontactencour == 0)
+			{
+				personnage.setCanJump(false);
+			}	
+		}
+	}
+
+
+	public void beginContact(Contact contact) 
+	{
+
+
+		Body a =  contact.getFixtureA().getBody();
+		Body b =  contact.getFixtureB().getBody();
+		String aData = (String)a.getUserData();
+		String bData = (String)b.getUserData();
+		//test du footer du player en contact avec le sol
+		if((aData == "SENSOR_PLAYER_FOOTER" && bData == "TILE_DE_GRAVITE")|| (bData == "SENSOR_PLAYER_FOOTER" && aData == "TILE_DE_GRAVITE"))
+		{
+			nbcontactencour=nbcontactencour+1;
+			System.out.println("le contact marche");
+			personnage.setCanJump(true);
+
+		}
+
+
+		// SI LE SENSOR LEFT EST EN CONTACT AVEC UNE TILE DE GRAVITE
+		
+		for (int i = 0; i < 4; i++) {
+			{
+				HashMap<Integer, Gravity> listContact = gravitys.InContact(personnage.getSensorBody(i).getPosition());
+				for (int Key : listContact.keySet()) 
+				{
+					bData =  (String)listContact.get(Key).getBody().getUserData();
+					if((bData == "SENSOR_PLAYER_FOOTER" && bData == "TILE_DE_GRAVITE")|| (bData == "SENSOR_PLAYER_FOOTER" && aData == "TILE_DE_GRAVITE"))
+					{
+						nbcontactencour=nbcontactencour+1;
+						System.out.println("le contact marche");
+						personnage.setCanJump(true);
+
+					}else if	
+
+				}
+			}
+
+		}
+	}}

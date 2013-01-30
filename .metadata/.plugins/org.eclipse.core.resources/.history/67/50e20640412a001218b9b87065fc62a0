@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="29" height="15" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="leveltileset" tilewidth="32" tileheight="32">
+  <image source="tiles.png" trans="000000" width="96" height="192"/>
+  <tile id="1">
+   <properties>
+    <property name="block" value="1"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="19" name="editor" tilewidth="32" tileheight="32">
+  <image source="editor.png" trans="ffffff" width="96" height="192"/>
+  <tile id="0">
+   <properties>
+    <property name="block" value="1"/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="start" value="1"/>
+   </properties>
+  </tile>
+  <tile id="4">
+   <properties>
+    <property name="end" value="1"/>
+   </properties>
+  </tile>
+  <tile id="5">
+   <properties>
+    <property name="ruban" value="1"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="collisions" width="29" height="15" opacity="0.27">
+  <properties>
+   <property name="blocked" value="1"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJxjYBg5QIzO9gmjYXrZiWw3LYE4mp34gAQOjE8eBtDDkRi/iRChjxQzB9JOETrigbSTnmDUzuFnJwCv6gmF
+  </data>
+ </layer>
+ <layer name="terain" width="29" height="15" opacity="0.24">
+  <data encoding="base64" compression="zlib">
+   eJylVNEOAyEIE9w97Nxu//+300STril4yR4a7jRQKEgtpdQOBztg8x8tfjudG/hZEq/eiGsCngDjOXHwudO34lD+nEOUH9b56jgmWsCr9GAdMSeVP9pz2k/HJTRSsbkm1SfmR5zlN0f2z7RSs8QaDR0fgAacKj76HYQW9IfvMP/B85ycigd1Grq/CasP6v6CerHuCpyqFyoHhorJM8Q9xTqzN8fvL+v5zifSVtW0m8WME88XZzb/WRyVY7ab7E9t1buJ3ugdbSONd7uB943aF8jJMbmeTGe1i9Xd6ucXvpgE+w==
+  </data>
+ </layer>
+</map>

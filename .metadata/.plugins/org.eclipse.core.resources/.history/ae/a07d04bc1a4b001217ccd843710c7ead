@@ -1,0 +1,32 @@
+package com.badlogic.qbob.prototypestest;
+
+import com.badlogic.gdx.math.Vector2;
+
+public class Weightlessness {
+	
+	private int angle;
+public Weightlessness(){
+	angle = 0;
+}
+public void setAngle(int _angle)
+{
+	
+	if(_angle == 90)
+	{System.out.println("GRAVITEE Droite");
+		Utility.world.setGravity(new Vector2(-100.0f, 0.0f));}
+		if(_angle == 180)
+		{System.out.println("GRAVITEE Top");
+			Utility.world.setGravity(new Vector2(0.0f, 100.0f));}
+			if(_angle == -90)
+			{System.out.println("GRAVITEE Gauche");
+				Utility.world.setGravity(new Vector2(-100.0f, 0.0f));}//gravitée gauche
+				if(_angle == 0)
+				{Utility.world.setGravity(new Vector2(0.0f, -100.0f));}
+
+	
+}
+public int getAngle()
+{
+	return angle;
+}
+}

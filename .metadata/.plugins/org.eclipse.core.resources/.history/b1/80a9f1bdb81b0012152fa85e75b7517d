@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="30" height="10" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="terain" tilewidth="32" tileheight="32">
+  <image source="tiles.png" width="96" height="192"/>
+ </tileset>
+ <tileset firstgid="19" name="Editor" tilewidth="32" tileheight="32">
+  <image source="editor.png" width="96" height="192"/>
+  <tile id="0">
+   <properties>
+    <property name="block" value="1"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="Calque de Tile 1" width="30" height="10">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgF1ATCUIwuNmov7cFItHekYQBg4AVZ
+  </data>
+ </layer>
+ <layer name="Calque 2" width="30" height="10" opacity="0.35">
+  <data encoding="base64" compression="zlib">
+   eJzFk8EOAjEIRIFqYnWjif//sWJSE3wOG096mOwW6MBACTMbiShwIPAf645CNFzf2pi34x8rZiDWi525lE7yOnh8J07Zt8QFNWxCI/tYeVWt9LM/M3EG79zpb+0pz0qfmsPze0tcUeO0914qvnpWdXGO1Mz388rLu9TXvQPWWP3djNw+9Xa7oewOn9q1bi985T0kjj/GPXH6Ex70ggPY
+  </data>
+ </layer>
+</map>

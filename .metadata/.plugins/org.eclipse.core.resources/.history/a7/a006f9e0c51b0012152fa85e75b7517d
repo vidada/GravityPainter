@@ -1,0 +1,107 @@
+package com.badlogic.qbob.prototypestest;
+
+import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+
+public class Item 
+{
+
+	static final int TILE = 0;
+	static final int KILL_PLAYER = 1;
+	static final int START_OF_LEVEL = 2;
+	static final int END_OF_LEVEL = 3;
+	static final int RUBAN = 4;
+	private Level map;
+	private int x,y,type;
+	private Animation anim;
+	private boolean inContact;
+	 private static int id = 0;
+	 
+	public Item(int _x,int _y,int _type,Level _map)
+	{
+		
+		
+		map = _map;
+		x = _x;
+		y = _y ;
+	
+		type = _type;
+		
+		
+		if(type == RUBAN)
+		{
+			anim =  new Animation("ruban.png", 32, 32, 300);
+			map.chargeAnimation(x, y, anim);
+		}else if(type ==START_OF_LEVEL)
+		{
+		
+		}else if(type ==END_OF_LEVEL)
+		{
+			anim =  new Animation("animationvidadette.png", 32, 32, 300);
+			map.chargeAnimation(x, y, anim);
+		}
+		id++;
+	}
+
+	
+	
+	
+
+
+	
+	
+
+
+
+
+
+
+	public boolean isInContact(player _perso)
+	{
+		
+
+	int testXmin = (int) Math.floor(_perso.Get_Body().getPosition().x /_perso.WIDTH);
+	int testXmax = (int) Math.ceil(_perso.Get_Body().getPosition().x/_perso.WIDTH);
+	int testYmin = (int) Math.floor((_perso.Get_Body().getPosition().y /_perso.HEIGHT));
+	int testYmax = (int) Math.ceil((_perso.Get_Body().getPosition().y/_perso.HEIGHT));
+			
+	System.out.println("MOI X: "+testXmin +"Y:"+testYmin + "RUBAN x:"+x+"y:"+y);
+	
+	
+	if((testXmin == x || testXmax == x)&&( testYmin== y || testYmax == y))
+		{
+			inContact = true;
+		}else
+		{
+			if(type == RUBAN){
+			System.out.println("MOI X: "+testXmin+ "Y:"+testYmin + "RUBAN x:"+x+"y:"+y);
+			}
+			inContact = false;
+		
+		}
+		return inContact;
+	}
+	
+	public boolean getInContact()
+	{
+		return inContact;
+	}
+
+	public boolean onDestroy() {
+		map.unChargeAnimation(x, y);
+	return true;
+	}
+	public int getType() {
+		
+		return type;
+	}
+	public int getX() {
+		
+		return x;
+	}
+	public int getY() {
+		
+		return y;
+	}
+
+
+}

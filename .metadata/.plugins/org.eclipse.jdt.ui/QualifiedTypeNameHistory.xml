@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="com.badlogic.gdx.graphics.g2d.tiled.TiledMap"/>
+<fullyQualifiedTypeName name="com.badlogic.gdx.graphics.g2d.Sprite"/>
+<fullyQualifiedTypeName name="com.badlogic.gdx.physics.box2d.MassData"/>
+<fullyQualifiedTypeName name="com.badlogic.qbob.prototypestest.Weightlessness"/>
+<fullyQualifiedTypeName name="com.badlogic.gdx.graphics.Texture"/>
+<fullyQualifiedTypeName name="com.badlogic.gdx.graphics.g2d.SpriteBatch"/>
+<fullyQualifiedTypeName name="java.lang.Thread"/>
+<fullyQualifiedTypeName name="com.badlogic.gdx.graphics.g2d.BitmapFont"/>
+<fullyQualifiedTypeName name="java.util.Map"/>
+<fullyQualifiedTypeName name="com.badlogic.gdx.physics.box2d.Fixture"/>
+<fullyQualifiedTypeName name="com.badlogic.gdx.physics.box2d.FixtureDef"/>
+<fullyQualifiedTypeName name="com.badlogic.gdx.audio.Sound"/>
+<fullyQualifiedTypeName name="com.badlogic.gdx.Audio"/>
+<fullyQualifiedTypeName name="com.badlogic.gdx.Gdx"/>
+<fullyQualifiedTypeName name="java.lang.Math"/>
+<fullyQualifiedTypeName name="com.badlogic.qbob.prototypestest.Gravity"/>
+<fullyQualifiedTypeName name="com.badlogic.gdx.physics.box2d.Contact"/>
+<fullyQualifiedTypeName name="com.badlogic.gdx.physics.box2d.Manifold"/>
+<fullyQualifiedTypeName name="com.badlogic.gdx.physics.box2d.ContactImpulse"/>
+<fullyQualifiedTypeName name="com.badlogic.gdx.physics.box2d.ContactListener"/>
+<fullyQualifiedTypeName name="java.lang.System"/>
+<fullyQualifiedTypeName name="com.badlogic.qbob.prototypestest.contactListener"/>
+<fullyQualifiedTypeName name="com.badlogic.gdx.physics.box2d.JointDef"/>
+<fullyQualifiedTypeName name="com.badlogic.gdx.physics.box2d.joints.DistanceJointDef"/>
+<fullyQualifiedTypeName name="com.badlogic.gdx.physics.box2d.Joint"/>
+<fullyQualifiedTypeName name="com.badlogic.gdx.physics.box2d.joints.PrismaticJoint"/>
+<fullyQualifiedTypeName name="com.badlogic.gdx.physics.box2d.joints.PrismaticJointDef"/>
+<fullyQualifiedTypeName name="com.badlogic.gdx.physics.box2d.joints.RevoluteJointDef"/>
+<fullyQualifiedTypeName name="com.badlogic.gdx.physics.box2d.Body"/>
+<fullyQualifiedTypeName name="com.badlogic.qbob.prototypestest.player"/>
+<fullyQualifiedTypeName name="com.badlogic.qbob.prototypestest.Utility"/>
+</qualifiedTypeNameHistroy>

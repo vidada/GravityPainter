@@ -1,0 +1,53 @@
+package com.badlogic.qbob.prototypestest;
+
+
+
+
+
+public class  GestionaireLevels {
+
+
+	Level niveau;
+	private GestionaireItems items;
+	private int id = 0;
+	
+	player perso;
+	public  GestionaireLevels(GestionaireItems _items, player _perso)
+	{
+		perso = _perso;
+		items = _items;
+		
+		next();
+
+	}
+	public int next(){
+		id++;
+
+		if(id == 1)
+		{
+			
+			niveau = new Level("maps/niveau"+id+".tmx", "", perso,items);
+			
+			System.out.println("NEXT");
+		
+		}else if(id == 2)
+		{
+			niveau.onDestroy();
+			items.delAll();
+
+			niveau = new Level("maps/niveau"+id+".tmx", "",perso,items);
+//			items.add(new Item(27,6,Item.END_OF_LEVEL,getLevel()));	
+			System.out.println("NEXT2");
+		}
+		return id;
+	}
+
+		public Level getLevel() {
+
+
+			return niveau;
+
+
+		}
+
+	}

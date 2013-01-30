@@ -1,0 +1,127 @@
+package com.badlogic.qbob.prototypestest;
+
+import java.util.HashMap;
+
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.physics.box2d.QueryCallback;
+
+final class YourCallback implements QueryCallback {
+	private player personnage;
+	private Level map;
+	private int typeDeQuery;
+	private final int COLLISIONS = 1;
+	private final int PAINTER = 2;
+	GestionaireGravity gravitys;
+	private Weightlessness gravitee;
+	public YourCallback(player _perso, GestionaireGravity _gravitys,Weightlessness _gravitee)
+	{
+		typeDeQuery = COLLISIONS;
+		personnage =  _perso;
+		gravitys = _gravitys;
+		gravitee = _gravitee;
+
+	}
+
+
+
+	public boolean reportFixture(final Fixture fixture)
+	{
+		gravitee.setAngle(0);
+		personnage.setAngleGravitee(0);	
+
+		if (fixture.getBody() != null) {
+
+			Body BodyClicked = fixture.getBody();
+
+			if(BodyClicked != personnage.Get_Body())
+			{
+				personnage.setInContactWithGround(true);
+
+				//System.out.println(" CAN JUMPalltime");
+				//is on ground  
+				if (gravitee.getAngle()== 0)
+				{
+
+					if((int)(personnage.Get_Body().getPosition().y - BodyClicked.getPosition().y) == 32 && Math.abs((int)personnage.Get_Body().getPosition().x - (int)BodyClicked.getPosition().x) < 32 && Math.abs((int)personnage.Get_Body().getPosition().x - (int)BodyClicked.getPosition().x) > 0 && personnage.Get_Body().getLinearVelocity().y == 0)
+					{
+						//	System.out.println(" CAN JUMP");
+						personnage.setCanJump(true);
+
+					}
+
+				} 
+				HashMap<Integer, Gravity> contactGravityKey = gravitys.isInContact(personnage.Get_Body().getPosition().x,personnage.Get_Body().getPosition().y,personnage.HEIGHT);
+				if(contactGravityKey != null)
+				{
+
+					for (int key : contactGravityKey.keySet()) 
+					{
+
+						if(contactGravityKey.get(key).getX() < personnage.Get_Body().getPosition().x/32)
+						{
+							gravitee.setAngle(-90);
+							personnage.setAngleGravitee(-90);
+							personnage.setCanJump(true);//TETST
+							//tester si il peux sauter
+							//if((int)(personnage.Get_Body().getPosition().x - BodyClicked.getPosition().x) == personnage.WIDTH  && personnage.Get_Body().getLinearVelocity().y == 0)
+							//{
+								//personnage.setCanJump(true);
+							//}else
+							//{System.out.println("-90 i cant jump" +Math.abs(personnage.Get_Body().getPosition().x - BodyClicked.getPosition().x));
+							//}
+
+
+
+						}else if(contactGravityKey.get(key).getX() > personnage.Get_Body().getPosition().x/32)
+						{
+
+
+							gravitee.setAngle(90);
+							personnage.setAngleGravitee(90);
+							personnage.setCanJump(true);
+							//personnage.Get_Body().setLinearVelocity(personnage.Get_Body().getLinearVelocity().y,personnage.Get_Body().getLinearVelocity().x);
+
+
+						}else
+						{
+							System.out.println("IS IN CONTACT WITH GRAVITY EGAL");
+							
+						}
+
+
+					}
+
+
+
+				}
+
+			}
+
+
+
+			/*
+	        	BodyDef bodyDef = new BodyDef();
+
+	    		bodyDef.type = BodyDef.BodyType.StaticBody;
+	    		bodyDef.position.set(BodyClicked.getPosition().x * Utility.PIXELS_PER_METER, BodyClicked.getPosition().y  * Utility.PIXELS_PER_METER);
+
+
+	    PolygonShape groundBox  = new PolygonShape();
+
+	    groundBox.setAsBox(10* Utility.PIXELS_PER_METER, (10* Utility.PIXELS_PER_METER));
+
+	    		//overallTexture = new Texture(Gdx.files.internal("datas/perso.png"));
+	    		//overallTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+	    Body	body	= Utility.world.createBody(bodyDef);
+
+	    		body.createFixture(groundBox, 0.0f);
+	            // Do whatever you like.
+			 */
+			//return true; // Return false if you want to stop after this fixture.
+		}
+		return true;
+
+
+	}
+}

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="50" height="10" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="leveltileset" tilewidth="32" tileheight="32">
+  <image source="1.png" trans="000000" width="96" height="192"/>
+  <tile id="1">
+   <properties>
+    <property name="block" value="1"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="Calque de Tile 1" width="50" height="10">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NkYGBgHOKYaRC4YdQfo/4gx3wmOtlDD/fT2i+0MBuXm+npD2rYhcsMWsYJPf1ByzhhGkYYAPGLaATQBwAA
+  </data>
+ </layer>
+</map>
