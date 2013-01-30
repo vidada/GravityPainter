@@ -56,14 +56,14 @@ final class contactListener implements ContactListener {
 		boolean CanJump = false;
 		Iterator<Contact> iContact = Utility.world.getContactList().iterator();
 		while(iContact.hasNext()){
-
+			
 			Contact contact = iContact.next();
 			Body a = contact.getFixtureA().getBody();
 			Body b =  contact.getFixtureB().getBody();
 			int aData =  (Integer) a.getUserData();
 			int bData =  (Integer) b.getUserData();
 
-
+		
 
 
 			// SI LES SENSOR SONT EN CONTACT AVEC UNE TILE DE GRAVITE
@@ -99,8 +99,8 @@ final class contactListener implements ContactListener {
 
 						if(isInContactWithGravity)  
 						{
-
-							if(iSensor == player.SENSOR_RIGHT)
+							
+						 if(iSensor == player.SENSOR_RIGHT)
 							{
 								personnage.setAngleGravitee(90);
 							}else if(iSensor == player.SENSOR_LEFT)
@@ -113,15 +113,23 @@ final class contactListener implements ContactListener {
 							{
 								personnage.setAngleGravitee(0);
 							}
-						}	
+						}
+						
+						
 					}			
+
+				
 				}
+
 			}
+
+
+
 		}
 		if(!CanJump)
 		{
 			personnage.setAngleGravitee(0);
 		}
-		personnage.setCanJump(CanJump);
+			personnage.setCanJump(CanJump);
 	}
 }
