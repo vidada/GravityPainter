@@ -60,11 +60,10 @@ public class player {
 	private Animation animPersoWalkLeft,animPersoWalkRight,animPersoJumpIn,animPersoStay,animPersoJumpOut,animPersoPuseRight,animPersoPuseLeft;
 	
 	
-	private float vitesseSaut;
+	
 	private Sound soundMarche,soundJump1,soundJump2,soundJump3;
 	player()
 	{
-		vitesseSaut=500.0f;
 		inContactWithSensor = new boolean[4];
 		sensorFoot =  new BodyDef();
 		sensorLeft =  new BodyDef();
@@ -329,17 +328,17 @@ public class player {
 		{    			
 			if(SensorActif[0] || (SensorActif[0] && SensorActif[1]) ||(SensorActif[0] && SensorActif[2]) || (SensorActif[0] && SensorActif[1] && SensorActif[2]))
 			{
-				body.applyLinearImpulse(new Vector2(0, vitesseSaut), body.getWorldCenter());
+				body.applyLinearImpulse(new Vector2(0, 500.0f), body.getWorldCenter());
 			}else if(SensorActif[3] || (SensorActif[3] && SensorActif[1]) ||(SensorActif[3] && SensorActif[2]) || (SensorActif[3] && SensorActif[1] && SensorActif[2]))
 			{
-				body.applyLinearImpulse(new Vector2(0, -vitesseSaut), body.getWorldCenter());
+				body.applyLinearImpulse(new Vector2(0, -500.0f), body.getWorldCenter());
 			}
 			else if(SensorActif[1])
 			{
-				body.applyLinearImpulse(new Vector2(vitesseSaut, 0.0f), body.getWorldCenter());
+				body.applyLinearImpulse(new Vector2(500.0f, 0.0f), body.getWorldCenter());
 			}	else if(SensorActif[2])
 			{
-				body.applyLinearImpulse(new Vector2(-vitesseSaut, 0.0f), body.getWorldCenter());
+				body.applyLinearImpulse(new Vector2(-500.0f, 0.0f), body.getWorldCenter());
 			}
 				  	    
 		}

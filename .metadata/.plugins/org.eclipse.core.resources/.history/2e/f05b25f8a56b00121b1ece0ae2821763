@@ -60,11 +60,10 @@ public class player {
 	private Animation animPersoWalkLeft,animPersoWalkRight,animPersoJumpIn,animPersoStay,animPersoJumpOut,animPersoPuseRight,animPersoPuseLeft;
 	
 	
-	private float vitesseSaut;
+	
 	private Sound soundMarche,soundJump1,soundJump2,soundJump3;
 	player()
 	{
-		vitesseSaut=500.0f;
 		inContactWithSensor = new boolean[4];
 		sensorFoot =  new BodyDef();
 		sensorLeft =  new BodyDef();
