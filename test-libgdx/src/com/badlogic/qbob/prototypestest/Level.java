@@ -20,8 +20,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 public class Level
 {
 
-	static final int WIDTH  = 480;
-	static final int HEIGHT = 320;	 
+	
 
 	private TileMapRenderer tileMapRenderer;
 	private TiledMap map;
@@ -34,7 +33,7 @@ public class Level
 	private GestionaireItems items;
 	private GestionaireGravity gravitys;
 	private int status;
-
+private float TileSize;
 	public Level(String _urlMap,String _urlAssets,player _perso,GestionaireItems _items,GestionaireGravity _gravitys){
 		items = _items;
 		perso = _perso;
@@ -45,6 +44,8 @@ public class Level
 		spriteBatch = new SpriteBatch();
 
 		map = TiledLoader.createMap(Gdx.files.internal(_urlMap));
+		
+		TileSize = 	Utility.worldToScreen(map.tileWidth);
 		atlas = new SimpleTileAtlas(map, Gdx.files.internal(""));
 		tileMapRenderer = new TileMapRenderer(map, atlas, 32, 32);
 
@@ -87,9 +88,9 @@ public class Level
 					if(testBlock.equals("1"))
 					{
 
-						bodyDef.position.set( (x * map.tileWidth)* Utility.PIXELS_PER_METER+16,(( map.tileHeight * map.height) - y * map.tileHeight)*Utility.PIXELS_PER_METER-16);
+						bodyDef.position.set( (x * TileSize),(( TileSize * map.height) - y * TileSize));
 						PolygonShape groundBox  = new PolygonShape();
-						groundBox.setAsBox(16 * Utility.PIXELS_PER_METER, 16 * Utility.PIXELS_PER_METER);
+						groundBox.setAsBox(TileSize/2, TileSize/2);
 
 						Body body	= Utility.world.createBody(bodyDef);
 						body.setUserData(Gravity.TILE);
@@ -116,7 +117,7 @@ public class Level
 
 						items.add(new Item(x,y,Item.START_OF_LEVEL,this));
 						perso.Get_Body().setType(BodyType.StaticBody);
-						perso.Get_Body().setTransform(x*32+16, map.height*32 -y *32 -16, 0);
+						perso.Get_Body().setTransform(x*TileSize+TileSize/2, map.height*TileSize -y *TileSize -TileSize/2, 0);
 						perso.Get_Body().setType(BodyType.DynamicBody);
 
 
@@ -187,17 +188,17 @@ public class Level
 	public void draw(OrthographicCamera cam)
 	{
 
-
+		
 		spriteBatch.begin();
 		for (int y = 0; y < map.height; y++) {
 			for (int x = 0; x < map.width; x++) { 
 
 				//((x)- cam.position.x) +WIDTH/2 -32/2,(y- cam.position.y) +HEIGHT/2)-32/2)
 
-				spriteBatch.draw( atlas.getRegion(tilesModified[y][x]),(x *32 )- cam.position.x +WIDTH/2 ,((y*32- cam.position.y) +HEIGHT/2));
+				spriteBatch.draw( atlas.getRegion(tilesModified[y][x]),(x *Utility.HEIGHT )- cam.position.x +Utility.WIDTH/2 ,((y*Utility.WIDTH- cam.position.y) +Utility.HEIGHT/2));
 				if(tilesAnimation[y][x] != null)
 				{
-					spriteBatch.draw(tilesAnimation[y][x].getImageByTime(),(x *32 )- cam.position.x +WIDTH/2 ,((y*32- cam.position.y)+HEIGHT/2));
+					spriteBatch.draw(tilesAnimation[y][x].getImageByTime(),(x *Utility.HEIGHT )- cam.position.x +Utility.WIDTH/2 ,((y*Utility.WIDTH- cam.position.y)+Utility.HEIGHT/2));
 
 				}
 
@@ -208,10 +209,7 @@ public class Level
 
 	}
 
-	public int Get_Height()
-	{
-		return map.height*map.tileHeight;	
-	}
+
 	public TileMapRenderer Get_tileMapRenderer()
 	{
 		return tileMapRenderer;	

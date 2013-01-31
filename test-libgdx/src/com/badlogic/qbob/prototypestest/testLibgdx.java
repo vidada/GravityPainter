@@ -58,7 +58,7 @@ public class testLibgdx implements ApplicationListener {
 		controls = new Controls();
 		spriteBatch = new SpriteBatch();
 		debugRenderer = new Box2DDebugRenderer();
-		cam = new OrthographicCamera(Utility.WIDTH * Utility.PIXELS_PER_METER,Utility.HEIGHT * Utility.PIXELS_PER_METER);            
+		cam = new OrthographicCamera((int)Utility.WIDTH,(int)Utility.HEIGHT);            
 		//utile pour bonne coordonéées   cam.setToOrtho(true,WIDTH / 2, HEIGHT / 2);
 		//todo refaire les cam
 
@@ -189,13 +189,7 @@ public class testLibgdx implements ApplicationListener {
 
 				personnage.moveRight();
 			}
-			boolean isPressedS = Gdx.input.isKeyPressed(Keys.S);
-			if(isPressedS)
-			{
-
-
-				System.out.println("PRINTTTT !!!"+ personnage.Get_Body().getLinearVelocity().x);
-			}
+	
 
 
 
@@ -217,13 +211,13 @@ public class testLibgdx implements ApplicationListener {
 
 		
 			spriteBatch.begin();
-			spriteBatch.draw(personnage.draw(),((personnage.Get_Body().getPosition().x)- cam.position.x) +Utility.WIDTH/2 -32/2,((personnage.Get_Body().getPosition().y- cam.position.y) +Utility.HEIGHT/2)-32/2,16,16,32,32,1,1,(int)personnage.getAngleGravitee());
+			spriteBatch.draw(personnage.draw(),((personnage.Get_Body().getPosition().x)) +Utility.WIDTH/2 -32/2,((personnage.Get_Body().getPosition().y- cam.position.y) +Utility.HEIGHT/2)-32/2,16,16,32,32,1,1,(int)personnage.getAngleGravitee());
 			spriteBatch.end();	
 
 
 			map.draw(cam);  
 			controls.draw();
-			mouse.onMovePress(Gdx.input.getX(),-Gdx.input.getY() + Utility.HEIGHT);
+			mouse.onMovePress(Gdx.input.getX(),-Gdx.input.getY() + (int)Utility.HEIGHT);
 
 
 

@@ -15,7 +15,8 @@ public class Gravity {
 	public static final int TILE = 20001;
 	public static final int GRAVIY = 20000;
 	
-	private int x,y,r;
+	private int x,y;
+	float r;
 	private double timer = 0;	
 	private int tempsPeinture = 5000;
 	BodyDef bodyDef;
@@ -26,11 +27,11 @@ public class Gravity {
 	public  Gravity(int _x,int _y,int _r, Body _bodyTileClicked) { //crée une gravitée x y et le rayon
 		x = _x;
 		y = _y;
-		r= _r;
+		r= Utility.worldToScreen(_r);
 		setTimer();
 		groundBox  = new CircleShape();
 		bodyTileClicked =_bodyTileClicked;
-		groundBox.setRadius(r*16);
+		groundBox.setRadius(r*Utility.worldToScreen(16));
 		
 		//groundBox.setPosition(new Vector2(x*32+16,y*32+16));
 
@@ -43,7 +44,7 @@ public class Gravity {
 		fix.setDensity(0);
 		fix.setSensor(true);
 
-		body.setTransform(x*32+16, y*32+16,0);
+		body.setTransform(Utility.worldToScreen(x*32+16), Utility.worldToScreen(y*32+16),0);
 		body.setUserData(Gravity.GRAVIY);
 
 		//	 
