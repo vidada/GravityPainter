@@ -36,8 +36,7 @@ class GravityCallback implements QueryCallback {
 			
 			int bData = (Integer) bodyClicked.getUserData();
 			if(bData == Gravity.TILE)
-		gestGravity.add((int)(Utility.worldToScreen(bodyClicked.getPosition().x/ 32)),(int)(Utility.worldToScreen(bodyClicked.getPosition().y/32)),(int)Utility.worldToScreen(4.0F),bodyClicked);
-		//	gestGravity.add(new Gravity((int)((bodyClicked.getPosition().x)/32),(int)(bodyClicked.getPosition().y/32),4));
+		gestGravity.add((int)(Utility.ScreenToWorld(bodyClicked.getPosition().x/ 32)),(int)(Utility.ScreenToWorld(bodyClicked.getPosition().y/32)),(int)Utility.ScreenToWorld(4.0F),bodyClicked);
 		}
 		return true;
 	}

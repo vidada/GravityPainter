@@ -195,11 +195,10 @@ private float TileSize;
 
 				//((x)- cam.position.x) +WIDTH/2 -32/2,(y- cam.position.y) +HEIGHT/2)-32/2)
 
-				spriteBatch.draw( atlas.getRegion(tilesModified[y][x]),(x *Utility.HEIGHT )- cam.position.x +Utility.WIDTH/2 ,((y*Utility.WIDTH- cam.position.y) +Utility.HEIGHT/2));
+				//spriteBatch.draw( atlas.getRegion(tilesModified[y][x]),(x *Utility.HEIGHT )- cam.position.x +Utility.WIDTH/2 ,((y*Utility.WIDTH- cam.position.y) +Utility.HEIGHT/2));
 				if(tilesAnimation[y][x] != null)
 				{
-					spriteBatch.draw(tilesAnimation[y][x].getImageByTime(),(x *Utility.HEIGHT )- cam.position.x +Utility.WIDTH/2 ,((y*Utility.WIDTH- cam.position.y)+Utility.HEIGHT/2));
-
+					spriteBatch.draw(tilesAnimation[y][x].getImageByTime(),(x *Utility.SCREEN_SIZE_WIDTH)- cam.position.x +Utility.SCREEN_SIZE_WIDTH/2 ,((y*Utility.SCREEN_SIZE_HEIGHT- cam.position.y)+Utility.SCREEN_SIZE_HEIGHT/2));
 				}
 
 			}

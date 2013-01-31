@@ -191,7 +191,8 @@ public class testLibgdx implements ApplicationListener {
 			}
 	
 
-
+			cam.position.set(personnage.Get_Body().getPosition().x,personnage.Get_Body().getPosition().y,0);
+			cam.update();
 
 
 			Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);   
@@ -211,13 +212,13 @@ public class testLibgdx implements ApplicationListener {
 
 		
 			spriteBatch.begin();
-			spriteBatch.draw(personnage.draw(),((personnage.Get_Body().getPosition().x)) +Utility.WIDTH/2 -32/2,((personnage.Get_Body().getPosition().y- cam.position.y) +Utility.HEIGHT/2)-32/2,16,16,32,32,1,1,(int)personnage.getAngleGravitee());
+			spriteBatch.draw(personnage.draw(),((personnage.Get_Body().getPosition().x)) +Utility.SCREEN_SIZE_WIDTH/2 -32/2,((personnage.Get_Body().getPosition().y- cam.position.y) +Utility.SCREEN_SIZE_HEIGHT/2)-32/2,16,16,32,32,1,1,(int)personnage.getAngleGravitee());
 			spriteBatch.end();	
 
 
 			map.draw(cam);  
 			controls.draw();
-			mouse.onMovePress(Gdx.input.getX(),-Gdx.input.getY() + (int)Utility.HEIGHT);
+			mouse.onMovePress(Gdx.input.getX(),-Gdx.input.getY() + (int)Utility.SCREEN_SIZE_HEIGHT);
 
 
 
@@ -227,8 +228,7 @@ public class testLibgdx implements ApplicationListener {
 
 
 
-			cam.position.set(personnage.Get_Body().getPosition().x,personnage.Get_Body().getPosition().y,0);
-			cam.update();	
+			
 
 			
 			//bug majeur

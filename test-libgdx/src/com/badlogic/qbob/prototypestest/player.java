@@ -467,22 +467,10 @@ if (angleGravitee == 90)//OK
 	}
 	
 
-	public void setCanJump(boolean _can) {
-
+	public void setCanJump(boolean _can)
+	{
 		jump = _can;
 	}
-
-
-
-
-
-
-
-
-	
-
-
-
 }
 
 

@@ -8,9 +8,7 @@ import com.badlogic.gdx.audio.Sound;
 
 
 public class GestionaireItems {
-	//_perso.Get_Body().setType(BodyDef.BodyType.StaticBody);
-	//_perso.Get_Body().setTransform(items.get(mapKey).getX()*32, items.get(mapKey).getY() *32, 0);
-	//_perso.Get_Body().setType(BodyDef.BodyType.DynamicBody);	
+	
 	private Sound soundGetItem;
 	private Map<Integer, Item> items;
 	private int itemId;

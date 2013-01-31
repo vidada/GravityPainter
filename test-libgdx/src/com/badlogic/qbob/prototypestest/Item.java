@@ -1,6 +1,5 @@
 package com.badlogic.qbob.prototypestest;
 
-import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 
 public class Item 
 {
@@ -19,18 +18,18 @@ public class Item
 	public Item(int _x,int _y,int _type,Level _map)
 	{
 
-
+		
 		map = _map;
 		x = _x;
 		y = _map.Get_TiledMap().height -_y-1 ;
 
 		type = _type;
-		
+
 		if(type == RUBAN)
 		{
 			anim =  new Animation("ruban.png", 32, 32, 300);
 			map.chargeAnimation(x, y, anim);
-
+			//TODO HitBox
 			System.out.println("Ruban X:" +x +"Y:"+y) ;
 
 		}else if(type ==START_OF_LEVEL)
@@ -40,7 +39,6 @@ public class Item
 		{
 			anim =  new Animation("animationvidadette.png", 32, 32, 300);
 			map.chargeAnimation(x, y, anim);
-			System.out.println("animationvidadette X:" +x +"Y:"+y) ;
 		}else if(type ==KILL_PLAYER)
 		{System.out.println("Piege at X:" +x +"Y:"+y) ;}
 
@@ -48,27 +46,14 @@ public class Item
 		id++;
 	}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 	public boolean isInContact(player _perso)
 	{
 
 
-		int testXmin = (int) Math.floor(_perso.Get_Body().getPosition().x /_perso.WIDTH);
-		int testXmax = (int) Math.ceil(_perso.Get_Body().getPosition().x*_perso.WIDTH);
-		int testYmin = (int) Math.floor((_perso.Get_Body().getPosition().y /_perso.HEIGHT));
-		int testYmax = (int) Math.ceil((_perso.Get_Body().getPosition().y*_perso.HEIGHT));
+		int testXmin = (int) Math.floor(_perso.Get_Body().getPosition().x /player.WIDTH);
+		int testXmax = (int) Math.ceil(_perso.Get_Body().getPosition().x*player.WIDTH);
+		int testYmin = (int) Math.floor((_perso.Get_Body().getPosition().y /player.HEIGHT));
+		int testYmax = (int) Math.ceil((_perso.Get_Body().getPosition().y*player.HEIGHT));
 
 		//System.out.println("MOIWW X: "+testXmin +"Y:"+testXmax + "RUBAN x:"+x+"y:"+y);
 
@@ -78,14 +63,12 @@ public class Item
 			inContact = true;
 		}else
 		{
-			//	if(type == RUBAN){
-			//	System.out.println("MOI X: "+testXmin+ "Y:"+testYmin + "RUBAN x:"+x+"y:"+y);
-			//	}
 			inContact = false;
-
 		}
 		return inContact;
 	}
+
+
 
 	public boolean getInContact()
 	{
@@ -108,6 +91,4 @@ public class Item
 
 		return y;
 	}
-
-
 }

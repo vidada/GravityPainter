@@ -8,6 +8,8 @@ public class Utility {
     public static final World world = new World(new Vector2(0.0f, -100.0f), true);
     static final float WIDTH  = worldToScreen(480);
     static final float HEIGHT = worldToScreen(320);
+    static final float SCREEN_SIZE_WIDTH = 480;
+    static final float SCREEN_SIZE_HEIGHT = 320;
    public static final float PIXELS_PER_METER = 32.0f;
 	 public static final int NOTHING = 0;
 	 public static final int LEFT = 1;
