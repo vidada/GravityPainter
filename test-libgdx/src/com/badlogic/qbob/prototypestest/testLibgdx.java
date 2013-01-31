@@ -58,7 +58,7 @@ public class testLibgdx implements ApplicationListener {
 		controls = new Controls();
 		spriteBatch = new SpriteBatch();
 		debugRenderer = new Box2DDebugRenderer();
-		cam = new OrthographicCamera((int)Utility.WIDTH,(int)Utility.HEIGHT);            
+		cam = new OrthographicCamera(Utility.WIDTH,Utility.HEIGHT);            
 		//utile pour bonne coordonéées   cam.setToOrtho(true,WIDTH / 2, HEIGHT / 2);
 		//todo refaire les cam
 
@@ -107,10 +107,10 @@ public class testLibgdx implements ApplicationListener {
 					if( clickedBouton == false)
 					{
 						Utility.world.QueryAABB(gravityCallback, 
-								(Gdx.input.getX()+cam.position.x -(Utility.WIDTH / 2)), 
-								(((-Gdx.input.getY()+cam.position.y)+(Utility.HEIGHT / 2))),
-								((Gdx.input.getX()+cam.position.x -(Utility.WIDTH / 2))+ 1),
-								(((-Gdx.input.getY()+cam.position.y)+(Utility.HEIGHT / 2) +1 )));
+								(Gdx.input.getX()+cam.position.x -(Utility.SCREEN_SIZE_WIDTH / 2)), 
+								(((-Gdx.input.getY()+cam.position.y)+(Utility.SCREEN_SIZE_HEIGHT / 2))),
+								((Gdx.input.getX()+cam.position.x -(Utility.SCREEN_SIZE_WIDTH / 2))+ 1),
+								(((-Gdx.input.getY()+cam.position.y)+(Utility.SCREEN_SIZE_HEIGHT / 2) +1 )));
 					
 		
 					}

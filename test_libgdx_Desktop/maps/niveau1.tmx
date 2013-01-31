@@ -47,10 +47,10 @@
    <property name="blocked" value="1"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJxjYBg4IE6mPmGquoIyMweLW4TJ1EeMueToGQxuEWYYdQs+d4CwBB3cIkakW6gN0M1Et28gMQBfvgTz
+   eJxjYBg4IE6mPmGquoIyMweLW4TJ1EeMueToGQxuEWYYdQshIEE1V0AANreIUdkOYgG6W4QHEQYApA8EWw==
   </data>
  </layer>
- <layer name="terain" width="35" height="10" opacity="0.44">
+ <layer name="terain" width="35" height="10" visible="0" opacity="0.44">
   <data encoding="base64" compression="zlib">
    eJydk+EKwzAIhK0+y35spbBB+v6vthYiXL+ZFPZDEhO9XE51M1sOi76e5t0PuQvEaBzzQ+58gp33i6xRYPB8n3DzIt/x1lLk7BJTcWd8YrXiT6NYn/jE5JvqK7/cPw5bB3Wr/jGqj+Iml0oX7rW+T+HCWNao6h/yTGt21Y19RZxTk49wIfasNzgD5MwazfSMrklyIWd9s+rp0byQC7Vx+9UxNUku7L9q/u7mS3MacqhtpYly4awTo+qL0bw3u+r1mtgmXN43sf/YBv8LMZ8NVw==
   </data>

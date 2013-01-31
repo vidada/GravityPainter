@@ -33,7 +33,7 @@ public class Level
 	private GestionaireItems items;
 	private GestionaireGravity gravitys;
 	private int status;
-private float TileSize;
+private float TileSize,TileSizeInPix;
 	public Level(String _urlMap,String _urlAssets,player _perso,GestionaireItems _items,GestionaireGravity _gravitys){
 		items = _items;
 		perso = _perso;
@@ -46,6 +46,7 @@ private float TileSize;
 		map = TiledLoader.createMap(Gdx.files.internal(_urlMap));
 		
 		TileSize = 	Utility.worldToScreen(map.tileWidth);
+		TileSizeInPix = 32;
 		atlas = new SimpleTileAtlas(map, Gdx.files.internal(""));
 		tileMapRenderer = new TileMapRenderer(map, atlas, 32, 32);
 
@@ -88,7 +89,7 @@ private float TileSize;
 					if(testBlock.equals("1"))
 					{
 
-						bodyDef.position.set( (x * TileSize),(( TileSize * map.height) - y * TileSize));
+						bodyDef.position.set((x * TileSize),(( TileSize * map.height) - y * TileSize));
 						PolygonShape groundBox  = new PolygonShape();
 						groundBox.setAsBox(TileSize/2, TileSize/2);
 
@@ -117,7 +118,7 @@ private float TileSize;
 
 						items.add(new Item(x,y,Item.START_OF_LEVEL,this));
 						perso.Get_Body().setType(BodyType.StaticBody);
-						perso.Get_Body().setTransform(x*TileSize+TileSize/2, map.height*TileSize -y *TileSize -TileSize/2, 0);
+						perso.Get_Body().setTransform(x*TileSize+TileSize/2, map.height*TileSize -y *TileSize +TileSize/2, 0);
 						perso.Get_Body().setType(BodyType.DynamicBody);
 
 
@@ -198,8 +199,15 @@ private float TileSize;
 				//spriteBatch.draw( atlas.getRegion(tilesModified[y][x]),(x *Utility.HEIGHT )- cam.position.x +Utility.WIDTH/2 ,((y*Utility.WIDTH- cam.position.y) +Utility.HEIGHT/2));
 				if(tilesAnimation[y][x] != null)
 				{
-					spriteBatch.draw(tilesAnimation[y][x].getImageByTime(),(x *Utility.SCREEN_SIZE_WIDTH)- cam.position.x +Utility.SCREEN_SIZE_WIDTH/2 ,((y*Utility.SCREEN_SIZE_HEIGHT- cam.position.y)+Utility.SCREEN_SIZE_HEIGHT/2));
-				}
+					
+					spriteBatch.draw(tilesAnimation[y][x].getImageByTime(),(Utility.ScreenToWorld(x*TileSize-cam.position.x)+Utility.SCREEN_SIZE_WIDTH/2)  ,Utility.ScreenToWorld(y*TileSize-cam.position.y)+Utility.SCREEN_SIZE_HEIGHT/2);
+					
+					//spriteBatch.draw(tilesAnimation[y][x].getImageByTime(),Utility.worldToScreen(x *TileSizeInPix)- Utility.worldToScreen(cam.position.x) +Utility.SCREEN_SIZE_WIDTH/2 ,((Utility.worldToScreen(y*TileSizeInPix)- Utility.worldToScreen(cam.position.y))+Utility.SCREEN_SIZE_HEIGHT/2));
+
+
+			}
+				//spriteBatch.draw(tilesAnimation[y][x].getImageByTime(),(x *32 )- cam.position.x +WIDTH/2 ,((y*32- cam.position.y)+HEIGHT/2));
+
 
 			}
 		}
@@ -252,10 +260,5 @@ private float TileSize;
 				}
 			}
 		}
-
 	}
-
-
-
-
 }
